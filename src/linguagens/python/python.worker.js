@@ -73,6 +73,7 @@ async function carregar() {
 const TRATADORES = {
   iniciar: () => (carregando ??= carregar()),
   executar: ({ codigo, opcoes }) => runtime.executar(codigo, opcoes),
+  executarRobo: ({ codigo, fase, opcoes }) => runtime.executarRobo(codigo, fase, opcoes),
 }
 
 self.onmessage = async ({ data: { id, tipo, dados } }) => {

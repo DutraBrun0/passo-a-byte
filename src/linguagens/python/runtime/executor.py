@@ -343,6 +343,73 @@ def executar(codigo, opcoes):
     return resposta
 
 
+# --- Desafios do Robô ------------------------------------------------------
+
+class ErroDoRobo(BaseException):
+    """O robô não conseguiu cumprir uma ordem (ex.: bateu na parede). Encerra o programa."""
+
+
+def _funcoes_do_robo(api, sessao):
+    """API em português exposta ao aluno. Cada chamada informa ao simulador
+    (em JavaScript) a linha do código que está rodando agora."""
+
+    def chamar(metodo, *args):
+        try:
+            return metodo(sessao.linha, *args)
+        except Exception as erro:  # JsException vinda do simulador
+            if getattr(erro, "name", "") == "ErroDoRobo":
+                raise ErroDoRobo(erro.message) from None
+            raise
+
+    def andar():
+        chamar(api.andar)
+
+    def virar_esquerda():
+        chamar(api.virarEsquerda)
+
+    def virar_direita():
+        chamar(api.virarDireita)
+
+    def pegar_chave():
+        chamar(api.pegarChave)
+
+    def tem_parede(lado="frente"):
+        return bool(chamar(api.temParede, lado))
+
+    def na_saida():
+        return bool(chamar(api.naSaida))
+
+    def tem_chave():
+        return bool(chamar(api.temChave))
+
+    return {
+        "andar": andar,
+        "virar_esquerda": virar_esquerda,
+        "virar_direita": virar_direita,
+        "pegar_chave": pegar_chave,
+        "tem_parede": tem_parede,
+        "na_saida": na_saida,
+        "tem_chave": tem_chave,
+    }
+
+
+def executar_robo_json(codigo, opcoes_json, api):
+    """Roda o programa do robô. O trace fica no simulador (lado JavaScript);
+    aqui só voltam saída, erro e contadores."""
+    opcoes = json.loads(opcoes_json)
+    inicio = time.monotonic()
+    compilado, erro = compilar(codigo)
+    resposta = {"console": "", "erro": erro, "passos": 0}
+    if compilado is not None:
+        sessao = Sessao(opcoes["limites"], ao_escrever=lambda texto: api.saida(texto, sessao.linha))
+        sessao.namespace["__builtins__"].update(_funcoes_do_robo(api, sessao))
+        resposta["erro"] = sessao.executar(compilado)
+        resposta["console"] = sessao.texto_console()
+        resposta["passos"] = sessao.passos
+    resposta["ms"] = round((time.monotonic() - inicio) * 1000)
+    return json.dumps(resposta, ensure_ascii=False, default=_mostrar)
+
+
 def executar_json(codigo, opcoes_json):
     """Interface com o JavaScript: texto entra, texto sai (sem proxies do Pyodide)."""
     resposta = executar(codigo, json.loads(opcoes_json))

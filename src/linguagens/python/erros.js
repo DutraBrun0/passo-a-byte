@@ -159,6 +159,11 @@ const REGRAS = [
       `O módulo ${nomeEntreAspas(m) ?? ''} não está liberado aqui. Por segurança, só módulos da biblioteca padrão usados nas lições (math, random, datetime, collections...) podem ser importados.`,
   },
   {
+    tipo: 'ErroDoRobo',
+    titulo: 'O Bit não conseguiu',
+    explicacao: (m) => `${m.charAt(0).toUpperCase()}${m.slice(1)}. Acompanhe a animação até o ponto do problema e ajuste o código.`,
+  },
+  {
     tipo: 'AssertionError',
     titulo: 'Um assert falhou',
     explicacao: (m) => (m ? `A condição testada era falsa: ${m}` : 'A condição de um assert era falsa.'),
