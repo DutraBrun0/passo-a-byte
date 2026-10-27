@@ -1,0 +1,175 @@
+/*
+ * Sprites em pixel art, desenhados como grades de caracteres.
+ * Cada caractere é um pixel; '.' é transparente e os demais apontam para um
+ * token de cor (sem hex soltos). 'x' usa a cor do texto do elemento (currentColor),
+ * útil para ícones que acompanham o rótulo de um botão.
+ */
+
+export const PALETA = {
+  o: 'signal-orange',
+  e: 'ember-crust',
+  k: 'graphite-ink',
+  d: 'midnight-ink',
+  w: 'paper-white',
+  m: 'cloud-mist',
+  s: 'cloud-shade',
+  g: 'slate-pencil',
+  l: 'ash-mist',
+  b: 'blush-shadow',
+  c: 'warm-cream',
+}
+
+export const COR_ATUAL = 'x'
+
+export const SPRITES = {
+  // Mascote Bit, 16x16. Na escala 4 fica com 64px (limite do DESIGN.md: 80px).
+  robo: [
+    '.......oo.......',
+    '.......gg.......',
+    '...gggggggggg...',
+    '..gllllllllllg..',
+    '..glwwllllwwlg..',
+    '..glwdllllwdlg..',
+    '..gllllllllllg..',
+    '..gllloooolllg..',
+    '...gggggggggg...',
+    '......gggg......',
+    '..eooooooooooe..',
+    '.geooowwwwoooeg.',
+    '.geoowooooowoeg.',
+    '.geooowwwwoooeg.',
+    '..eooooooooooe..',
+    '...gg......gg...',
+  ],
+
+  // Nuvem grande, 24x12 (escala 4 = 96px; o DESIGN.md limita a ~120px).
+  // Contorno em slate-pencil, preenchimento em tons de branco e cloud-mist.
+  nuvem: [
+    '.........ggggg..........',
+    '.......ggwwwwwgg........',
+    '......gwwwwwwwwwg.......',
+    '...gggwwwwwwwwwwwgggg...',
+    '..gwwwwwwwwwwwwwwwwwwg..',
+    '.gwwwwwwwwwwwwwwwwwwwwg.',
+    'gwwwwwwwwwwwwwwwwwwwwwwg',
+    'gwwwwwwwwwwwwwwwwwwwmmwg',
+    'gmwwwwwwwwwwwwwwwwmmmmmg',
+    'gmmmmmmwwwwwwmmmmmmmmssg',
+    '.gssmmmmmmmmmmmmmmssssg.',
+    '..gggggggggggggggggggg..',
+  ],
+
+  // Nuvem pequena, 16x8.
+  nuvemPequena: [
+    '.....gggg.......',
+    '...ggwwwwg......',
+    '..gwwwwwwwggg...',
+    '.gwwwwwwwwwwwg..',
+    'gwwwwwwwwwwwwwg.',
+    'gmwwwwwwwwwmmmmg',
+    '.gssmmmmmmmssssg',
+    '..ggggggggggggg.',
+  ],
+
+  // Ícones 7x7 que herdam a cor do texto.
+  seta: [
+    '...x...',
+    '...xx..',
+    'xxxxxx.',
+    'xxxxxxx',
+    'xxxxxx.',
+    '...xx..',
+    '...x...',
+  ],
+  check: [
+    '......x',
+    '.....xx',
+    'x...xx.',
+    'xx.xx..',
+    '.xxx...',
+    '..x....',
+    '.......',
+  ],
+  cruz: [
+    'x.....x',
+    'xx...xx',
+    '.xx.xx.',
+    '..xxx..',
+    '.xx.xx.',
+    'xx...xx',
+    'x.....x',
+  ],
+  cadeado: [
+    '..xxx..',
+    '.x...x.',
+    '.x...x.',
+    'xxxxxxx',
+    'xxx.xxx',
+    'xxx.xxx',
+    'xxxxxxx',
+  ],
+
+  // Ícones dos níveis, 12x12.
+  nivelSemente: [
+    '............',
+    '.....oo.....',
+    '....oooo....',
+    '...ooeooo...',
+    '.....ee.....',
+    '.....ee.....',
+    '..gg.ee.gg..',
+    '...gggeggg..',
+    '.....ee.....',
+    '.eeeeeeeeee.',
+    '.egggggggge.',
+    '..eeeeeeee..',
+  ],
+  nivelBloco: [
+    '............',
+    '.kkkkkkkkkk.',
+    '.kwwwwwwwwk.',
+    '.kwoowwoowk.',
+    '.kwoowwoowk.',
+    '.kwwwwwwwwk.',
+    '.kwoowwoowk.',
+    '.kwoowwoowk.',
+    '.kwwwwwwwwk.',
+    '.kkkkkkkkkk.',
+    '............',
+    '............',
+  ],
+  nivelEngrenagem: [
+    '.....gg.....',
+    '.g..gggg..g.',
+    '..gggggggg..',
+    '..ggg..ggg..',
+    '.ggg....ggg.',
+    'gggg.oo.gggg',
+    'gggg.oo.gggg',
+    '.ggg....ggg.',
+    '..ggg..ggg..',
+    '..gggggggg..',
+    '.g..gggg..g.',
+    '.....gg.....',
+  ],
+  nivelEstrela: [
+    '.....oo.....',
+    '.....oo.....',
+    '....oooo....',
+    '....oooo....',
+    'oooooooooooo',
+    '.oooooooooo.',
+    '..oooooooo..',
+    '...oooooo...',
+    '...oooooo...',
+    '..ooo..ooo..',
+    '..oo....oo..',
+    '.oo......oo.',
+  ],
+}
+
+/** Dimensões de um sprite (todas as linhas têm o mesmo tamanho; há teste para isso). */
+export function dimensoes(nome) {
+  const grade = SPRITES[nome]
+  return { largura: grade[0].length, altura: grade.length }
+}

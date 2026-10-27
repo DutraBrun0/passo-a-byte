@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import "./design-system/tokens.css";
+
+@layer base {
+  html {
+    background-color: var(--surface-sky-canvas);
+    color: var(--color-graphite-ink);
+  }
+
+  body {
+    min-height: 100dvh;
+    font-family: var(--font-manrope-variable);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Foco visível: o anel laranja do sistema, sem outline padrão */
+  :focus-visible {
+    outline: none;
+    box-shadow: var(--shadow-subtle);
+  }
+
+  ::selection {
+    background-color: var(--color-cloud-shade);
+    color: var(--color-midnight-ink);
+  }
+}
+
+@layer utilities {
+  /* Pixel art: sem suavização ao escalar */
+  .pixelated {
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

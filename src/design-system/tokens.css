@@ -1,0 +1,153 @@
+/*
+ * Tokens do design system (fonte: DESIGN.md).
+ * Os nomes são os mesmos do DESIGN.md. Os namespaces padrão do Tailwind
+ * (cores, fontes, raios, sombras, tamanhos de texto) são zerados para que
+ * nenhum componente use valores fora do sistema.
+ *
+ * `static` faz o Tailwind emitir todas as variáveis no :root, mesmo as que
+ * não viram utilitário — o canvas dos sprites lê as cores por getComputedStyle.
+ */
+@theme static {
+  /* Cores */
+  --color-*: initial;
+  --color-signal-orange: #ff5e24;
+  --color-ember-crust: #6c3200;
+  --color-cloud-mist: #e3f1fe;
+  --color-graphite-ink: #232629;
+  --color-paper-white: #ffffff;
+  --color-slate-pencil: #5c6066;
+  --color-ash-mist: #989ea4;
+  --color-blush-shadow: #dbced0;
+  --color-midnight-ink: #101828;
+
+  /* Derivadas documentadas no DESIGN.md (Surfaces, Footer, Pixel Art) */
+  --color-app-window: #f5f5f7;
+  --color-warm-cream: #f5e6dc;
+  --color-cloud-shade: #c4dcf3;
+
+  /* Tipografia — famílias */
+  --font-*: initial;
+  --font-jersey-10: 'Jersey 10', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-manrope-variable: 'Manrope Variable', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-code: ui-monospace, "Cascadia Code", "JetBrains Mono", "SF Mono", Consolas, monospace;
+  --default-font-family: var(--font-manrope-variable);
+  --default-mono-font-family: var(--font-code);
+
+  /* Tipografia — escala (o par --text-x--line-height aplica a entrelinha junto) */
+  --text-*: initial;
+  --text-caption: 12px;
+  --text-caption--line-height: 1.5;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.43;
+  --text-body: 16px;
+  --text-body--line-height: 1.5;
+  --text-subheading: 18px;
+  --text-subheading--line-height: 1.56;
+  --text-heading-sm: 36px;
+  --text-heading-sm--line-height: 1.11;
+  --text-heading-sm--letter-spacing: -0.9px;
+  --text-heading: 48px;
+  --text-heading--line-height: 0.85;
+  --text-heading--letter-spacing: -1.2px;
+  --text-heading-lg: 60px;
+  --text-heading-lg--line-height: 0.85;
+  --text-heading-lg--letter-spacing: -1.5px;
+  --text-display: 96px;
+  --text-display--line-height: 0.8;
+  --text-display--letter-spacing: -3px;
+
+  --leading-caption: 1.5;
+  --leading-body-sm: 1.43;
+  --leading-body: 1.5;
+  --leading-subheading: 1.56;
+  --leading-heading-sm: 1.11;
+  --leading-heading: 0.85;
+  --leading-heading-lg: 0.85;
+  --leading-display: 0.8;
+  --tracking-heading-sm: -0.9px;
+  --tracking-heading: -1.2px;
+  --tracking-heading-lg: -1.5px;
+  --tracking-display: -3px;
+
+  /* Pesos */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /*
+   * Espaçamento: a unidade base vira 1px, então `p-16` = 16px e os nomes dos
+   * utilitários coincidem com os tokens do DESIGN.md (--spacing-16 etc.).
+   */
+  --spacing: 1px;
+  --spacing-unit: 8px;
+  /* Meia unidade: só para detalhes de pixel art, pílulas e bordas internas */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --spacing-128: 128px;
+  --spacing-192: 192px;
+
+  /* Layout */
+  --container-page: 1200px;
+  --container-prose: 560px;
+
+  /* Raios */
+  --radius-*: initial;
+  --radius-md: 6px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+  --radius-3xl-2: 32px;
+  --radius-nav: 6px;
+  --radius-cards: 12px;
+  --radius-links: 6px;
+  --radius-images: 24px;
+  --radius-buttons: 6px;
+  --radius-cardslarge: 16px;
+  --radius-featurepanels: 32px;
+
+  /* Sombras: md = card padrão, xl = card elevado, subtle = anel de foco/ativo */
+  --shadow-*: initial;
+  --shadow-xl: rgba(0, 0, 0, 0.01) 0px 49px 30px 0px, rgba(0, 0, 0, 0.03) 0px 22px 22px 0px, rgba(0, 0, 0, 0.03) 0px 5px 12px 0px;
+  --shadow-md: rgba(15, 34, 52, 0.01) 0px 27px 11px 0px, rgba(15, 34, 52, 0.02) 0px 15px 9px 0px, rgba(15, 34, 52, 0.04) 0px 7px 7px 0px, rgba(15, 34, 52, 0.04) 0px 2px 4px 0px;
+  --shadow-subtle: oklab(1 0 5.96046e-8 / 0.17) 0px 0.5px 0.5px 0.5px inset, oklab(0.598475 0.14309 0.112215 / 0.2) 0px -1px 0.5px 0px inset, rgb(255, 94, 36) 0px 0px 0px 1px;
+
+  /* Animações (passos discretos, como um sprite de jogo) */
+  --animate-drift: drift 9s ease-in-out infinite alternate;
+  --animate-pisca: pisca 1.6s steps(2, jump-none) infinite;
+  --animate-flutua: flutua 1.2s steps(2, jump-none) infinite alternate;
+
+  @keyframes drift {
+    from { translate: 0 0; }
+    to { translate: 16px 0; }
+  }
+  @keyframes pisca {
+    from { opacity: 1; }
+    to { opacity: 0.2; }
+  }
+  @keyframes flutua {
+    from { translate: 0 0; }
+    to { translate: 0 -4px; }
+  }
+}
+
+/* Variáveis do DESIGN.md que não geram utilitários do Tailwind */
+:root {
+  --page-max-width: 1200px;
+  --section-gap: 48px;
+  --card-padding: 16px;
+  --element-gap: 16px;
+
+  --surface-sky-canvas: var(--color-cloud-mist);
+  --surface-card-paper: var(--color-paper-white);
+  --surface-app-window: var(--color-app-window);
+  --surface-ember-ground: var(--color-ember-crust);
+}
