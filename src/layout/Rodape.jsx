@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import { PixelSprite } from '../design-system/sprites/PixelSprite.jsx'
+import { LINGUAGEM_PADRAO } from '../linguagens/index.js'
 
 // Rodapé em Ember Crust: a única superfície escura do site (DESIGN.md › Footer Block).
 export function Rodape() {
@@ -15,12 +16,12 @@ export function Rodape() {
         </div>
         <ul className="flex flex-wrap gap-16 text-body-sm font-medium">
           <li>
-            <Link className="rounded-links text-paper-white underline-offset-4 hover:underline" to="/python/trilha">
+            <Link className="rounded-links text-paper-white underline-offset-4 hover:underline" to={`/${LINGUAGEM_PADRAO}/trilha`}>
               Trilha
             </Link>
           </li>
           <li>
-            <Link className="rounded-links text-paper-white underline-offset-4 hover:underline" to="/python/robo">
+            <Link className="rounded-links text-paper-white underline-offset-4 hover:underline" to={`/${LINGUAGEM_PADRAO}/robo`}>
               Desafios do Robô
             </Link>
           </li>

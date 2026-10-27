@@ -8,5 +8,8 @@ import { python } from './python/index.js'
 
 registrarLinguagem(python)
 
+/** Linguagem aberta pela página inicial e pela navegação. */
+export const LINGUAGEM_PADRAO = 'python'
+
 /** Linguagens planejadas, exibidas só como "Em breve" (sem funcionalidade). */
 export const LINGUAGENS_PLANEJADAS = ['JavaScript', 'SQL', 'C', 'Java']

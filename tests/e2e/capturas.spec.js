@@ -6,7 +6,9 @@ test.skip(!pasta, 'defina CAPTURAS para gerar as imagens')
 
 const PAGINAS = [
   ['inicio', '/'],
-  ['licao', '/python/licao/varios-valores'],
+  ['licao', '/python/licao/ola-mundo'],
+  ['trilha', '/python/trilha'],
+  ['progresso', '/progresso'],
 ]
 
 for (const [nome, caminho] of PAGINAS) {
