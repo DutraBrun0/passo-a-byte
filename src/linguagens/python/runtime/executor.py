@@ -262,13 +262,25 @@ def _teste_python(teste, sessao):
     return erro is None, None, None, erro
 
 
+def _contar_chamadas(arvore):
+    contagem = {}
+    for no in ast.walk(arvore):
+        if isinstance(no, ast.Call) and isinstance(no.func, ast.Name):
+            contagem[no.func.id] = contagem.get(no.func.id, 0) + 1
+    return contagem
+
+
 def _teste_estrutura(teste, arvore):
+    """Olha o código sem executar: nós da AST exigidos/proibidos e quantas vezes cada função é chamada."""
     presentes = {type(no).__name__ for no in ast.walk(arvore)}
-    exigidos = teste.get("usa", [])
-    proibidos = teste.get("nao_usa", [])
-    faltando = [nome for nome in exigidos if nome not in presentes]
-    sobrando = [nome for nome in proibidos if nome in presentes]
-    return not faltando and not sobrando
+    if any(nome not in presentes for nome in teste.get("usa", [])):
+        return False
+    if any(nome in presentes for nome in teste.get("nao_usa", [])):
+        return False
+    chamadas = _contar_chamadas(arvore)
+    if any(chamadas.get(nome, 0) > limite for nome, limite in teste.get("max_chamadas", {}).items()):
+        return False
+    return all(chamadas.get(nome, 0) >= minimo for nome, minimo in teste.get("min_chamadas", {}).items())
 
 
 def rodar_teste(teste, codigo_compilado, arvore, limites):
