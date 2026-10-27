@@ -1,6 +1,6 @@
 import { Link, NavLink } from 'react-router'
 import { PixelSprite } from '../design-system/sprites/PixelSprite.jsx'
-import { LINGUAGEM_PADRAO } from '../linguagens/index.js'
+import { LINGUAGEM_PADRAO } from '../linguagens/catalogo.js'
 
 const LINKS = [
   { para: `/${LINGUAGEM_PADRAO}/trilha`, rotulo: 'Trilha' },
