@@ -52,6 +52,8 @@ export const python = {
   extensao: '.py',
   editor: { suporte: suportePython, indentacao: '    ' },
   limites: LIMITES_PYTHON,
+  // Tipos de teste que o executor.py sabe rodar (validados no conteúdo).
+  tiposDeTeste: ['saida', 'funcao', 'variavel', 'python', 'estrutura'],
 
   preparar,
   estadoCarga: carga.obter,

@@ -17,6 +17,7 @@
     "test:e2e": "playwright test"
   },
   "dependencies": {
+    "@codemirror/autocomplete": "^6.20.4",
     "@codemirror/commands": "^6.11.1",
     "@codemirror/lang-python": "^6.2.1",
     "@codemirror/language": "^6.13.1",
@@ -25,7 +26,6 @@
     "@fontsource-variable/manrope": "^5.2.5",
     "@fontsource/jersey-10": "^5.2.5",
     "@lezer/highlight": "^1.2.5",
-    "codemirror": "^6.0.2",
     "pyodide": "^314.0.7",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",

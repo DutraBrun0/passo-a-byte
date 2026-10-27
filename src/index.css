@@ -27,6 +27,126 @@
   }
 }
 
+@layer components {
+  /* No editor o anel vai no contêiner (focus-within), não na área de texto */
+  .cm-content:focus-visible {
+    box-shadow: none;
+  }
+
+  /*
+   * Destaque de sintaxe (classes do classHighlighter do Lezer), compartilhado
+   * pelo editor e pelos blocos de código das lições. Só cores do sistema:
+   * palavras-chave em Midnight Ink negrito, literais em Ember Crust.
+   */
+  .tok-keyword,
+  .tok-className,
+  .tok-definition {
+    color: var(--color-midnight-ink);
+    font-weight: var(--font-weight-bold);
+  }
+  .tok-string,
+  .tok-string2,
+  .tok-number,
+  .tok-bool,
+  .tok-atom,
+  .tok-literal {
+    color: var(--color-ember-crust);
+  }
+  .tok-comment {
+    color: var(--color-slate-pencil);
+    font-style: italic;
+  }
+  .tok-operator,
+  .tok-punctuation {
+    color: var(--color-slate-pencil);
+  }
+  .tok-variableName2,
+  .tok-propertyName {
+    color: var(--color-graphite-ink);
+  }
+  .tok-invalid {
+    text-decoration: underline wavy var(--color-signal-orange);
+  }
+
+  /* Texto das lições (Markdown). Títulos internos em Manrope: Jersey só a partir de 36px. */
+  .prosa {
+    color: var(--color-graphite-ink);
+    font-size: var(--text-body);
+    line-height: var(--leading-body);
+  }
+  .prosa > * + * {
+    margin-top: var(--spacing-16);
+  }
+  .prosa h2,
+  .prosa h3 {
+    margin-top: var(--spacing-32);
+    font-size: var(--text-subheading);
+    line-height: var(--leading-subheading);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-midnight-ink);
+  }
+  .prosa p,
+  .prosa li {
+    color: var(--color-graphite-ink);
+  }
+  .prosa ul,
+  .prosa ol {
+    padding-left: var(--spacing-24);
+  }
+  .prosa ul {
+    list-style: square;
+  }
+  .prosa ol {
+    list-style: decimal;
+  }
+  .prosa li + li {
+    margin-top: var(--spacing-8);
+  }
+  .prosa li::marker {
+    color: var(--color-signal-orange);
+  }
+  .prosa strong {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-midnight-ink);
+  }
+  .prosa a {
+    font-weight: var(--font-weight-medium);
+    text-decoration: underline;
+    text-decoration-color: var(--color-signal-orange);
+    text-underline-offset: 4px;
+  }
+  .prosa :not(pre) > code {
+    border-radius: var(--radius-md);
+    background-color: var(--color-cloud-mist);
+    padding: 0 var(--spacing-4);
+    font-family: var(--font-code);
+    font-size: 0.9em;
+    color: var(--color-midnight-ink);
+  }
+  .prosa blockquote {
+    border-left: var(--spacing-4) solid var(--color-signal-orange);
+    background-color: var(--color-app-window);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: var(--spacing-8) var(--spacing-16);
+    color: var(--color-slate-pencil);
+  }
+  .prosa table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-body-sm);
+  }
+  .prosa th,
+  .prosa td {
+    border: 1px solid var(--color-cloud-mist);
+    padding: var(--spacing-8);
+    text-align: left;
+  }
+  .prosa th {
+    background-color: var(--color-app-window);
+    font-weight: var(--font-weight-semibold);
+  }
+}
+
 @layer utilities {
   /* Pixel art: sem suavização ao escalar */
   .pixelated {

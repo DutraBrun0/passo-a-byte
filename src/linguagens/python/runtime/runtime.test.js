@@ -150,6 +150,13 @@ describe('executor Python: testes automáticos', () => {
     expect(rodar('i = 0\nwhile i < 3:\n    i += 1', { testes }).testes[0].passou).toBe(false)
   })
 
+  it('conta chamadas de funções no código', () => {
+    const testes = [{ tipo: 'estrutura', max_chamadas: { print: 1 }, min_chamadas: { len: 1 } }]
+    expect(rodar('print(len("abc"))', { testes }).testes[0].passou).toBe(true)
+    expect(rodar('print(len("a"))\nprint("b")', { testes }).testes[0].passou).toBe(false)
+    expect(rodar('print("a")', { testes }).testes[0].passou).toBe(false)
+  })
+
   it('um loop infinito dentro da função testada também é interrompido', () => {
     const r = rodar('def f():\n    while True:\n        pass', {
       limites: { ...LIMITES_PYTHON, passos: 10_000 },
