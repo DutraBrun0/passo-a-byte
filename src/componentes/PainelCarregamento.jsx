@@ -6,6 +6,7 @@ const mb = (bytes) => (bytes / 1e6).toFixed(1).replace('.', ',')
 function descrever(estado, nomeLinguagem) {
   switch (estado.fase) {
     case 'baixando':
+      if (estado.total && estado.carregado >= estado.total) return `Ligando o interpretador ${nomeLinguagem}...`
       return estado.total
         ? `Baixando o ${nomeLinguagem}: ${mb(estado.carregado ?? 0)} de ${mb(estado.total)} MB`
         : `Baixando o ${nomeLinguagem}...`

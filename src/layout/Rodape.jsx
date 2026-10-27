@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 import { PixelSprite } from '../design-system/sprites/PixelSprite.jsx'
-import { LINGUAGEM_PADRAO } from '../linguagens/index.js'
+import { LINGUAGEM_PADRAO } from '../linguagens/catalogo.js'
 
 // Rodapé em Ember Crust: a única superfície escura do site (DESIGN.md › Footer Block).
 export function Rodape() {

@@ -1,22 +1,33 @@
 import { Layout } from './layout/Layout.jsx'
 import { Inicio } from './paginas/Inicio.jsx'
 import { NaoEncontrada } from './paginas/NaoEncontrada.jsx'
-import { PaginaLicao } from './paginas/licao/PaginaLicao.jsx'
-import { PaginaProgresso } from './paginas/progresso/PaginaProgresso.jsx'
-import { PaginaTrilha } from './paginas/trilha/PaginaTrilha.jsx'
-import { PaginaFase } from './paginas/robo/PaginaFase.jsx'
-import { PaginaFases } from './paginas/robo/PaginaFases.jsx'
+
+/*
+ * Páginas com editor e interpretador são carregadas sob demanda, junto com o
+ * registro das linguagens (que traz os adaptadores e o CodeMirror). Assim a
+ * página inicial abre sem baixar nada disso.
+ */
+const sobDemanda = (carregar, nome) => async () => {
+  const [modulo] = await Promise.all([carregar(), import('./linguagens/index.js')])
+  return { Component: modulo[nome] }
+}
 
 export const rotas = [
   {
     element: <Layout />,
     children: [
       { index: true, element: <Inicio /> },
-      { path: ':linguagem/trilha', element: <PaginaTrilha /> },
-      { path: ':linguagem/licao/:licaoId', element: <PaginaLicao /> },
-      { path: ':linguagem/robo', element: <PaginaFases /> },
-      { path: ':linguagem/robo/:faseId', element: <PaginaFase /> },
-      { path: 'progresso', element: <PaginaProgresso /> },
+      { path: ':linguagem/trilha', lazy: sobDemanda(() => import('./paginas/trilha/PaginaTrilha.jsx'), 'PaginaTrilha') },
+      {
+        path: ':linguagem/licao/:licaoId',
+        lazy: sobDemanda(() => import('./paginas/licao/PaginaLicao.jsx'), 'PaginaLicao'),
+      },
+      { path: ':linguagem/robo', lazy: sobDemanda(() => import('./paginas/robo/PaginaFases.jsx'), 'PaginaFases') },
+      {
+        path: ':linguagem/robo/:faseId',
+        lazy: sobDemanda(() => import('./paginas/robo/PaginaFase.jsx'), 'PaginaFase'),
+      },
+      { path: 'progresso', lazy: sobDemanda(() => import('./paginas/progresso/PaginaProgresso.jsx'), 'PaginaProgresso') },
       { path: '*', element: <NaoEncontrada /> },
     ],
   },
