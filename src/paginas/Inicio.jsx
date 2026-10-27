@@ -16,10 +16,10 @@ function CartaoNivel({ nivel, indice, progresso }) {
   return (
     <Link
       to={`/${LINGUAGEM}/trilha?nivel=${nivel.id}`}
-      className="group flex h-full flex-col gap-16 rounded-cards border border-cloud-mist bg-paper-white p-16 shadow-md transition-colors hover:border-signal-orange"
+      className="levita group flex h-full flex-col gap-16 rounded-cards border border-cloud-mist bg-paper-white p-16 shadow-md hover:border-signal-orange hover:shadow-xl"
     >
       <div className="flex items-start justify-between gap-16">
-        <div className="rounded-md bg-cloud-mist p-8">
+        <div className="balanca-no-hover rounded-md bg-cloud-mist p-8">
           <PixelSprite nome={nivel.icone} escala={4} />
         </div>
         {licoes.length === 0 ? (
@@ -54,14 +54,14 @@ export function Inicio() {
         <Nuvens cantos={['topo-esquerda', 'topo-direita', 'base-esquerda']} />
         <div className="mx-auto flex max-w-page flex-col items-center text-center">
           <h1 className="font-jersey-10 font-normal">
-            <span className="block text-heading-lg text-graphite-ink md:text-display">Aprenda Python</span>
-            <span className="block text-heading-lg text-signal-orange md:text-display">um passo por vez</span>
+            <span className="block animate-entra text-heading-lg text-graphite-ink md:text-display" style={{ animationDelay: '80ms' }}>Aprenda Python</span>
+            <span className="block animate-entra text-heading-lg text-signal-orange md:text-display" style={{ animationDelay: '200ms' }}>um passo por vez</span>
           </h1>
-          <p className="mt-24 max-w-prose text-body text-slate-pencil">
+          <p className="mt-24 max-w-prose animate-entra text-body text-slate-pencil" style={{ animationDelay: '320ms' }}>
             Lições curtas, exercícios corrigidos na hora e um robô que obedece cada linha do seu código. Tudo roda no
             navegador, com Python de verdade.
           </p>
-          <div className="mt-32">
+          <div className="mt-32 animate-entra" style={{ animationDelay: '440ms' }}>
             <Botao variante="primario" tamanho="lg" para={`/${LINGUAGEM}/trilha`} icone="seta">
               {progresso.xp > 0 ? 'Continuar a trilha' : 'Começar a trilha'}
             </Botao>
@@ -73,7 +73,7 @@ export function Inicio() {
       </section>
 
       <section aria-labelledby="titulo-niveis" className="mx-auto max-w-page px-16 pb-64 md:px-32">
-        <Titulo id="titulo-niveis" tamanho="heading">
+        <Titulo id="titulo-niveis" tamanho="heading" data-revelar>
           Escolha seu nível
         </Titulo>
         <p className="mt-16 max-w-prose text-slate-pencil">
@@ -89,7 +89,7 @@ export function Inicio() {
       </section>
 
       <section className="mx-auto max-w-page px-16 pb-64 md:px-32">
-        <Cartao className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+        <Cartao data-revelar className="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
           <div>
             <p className="text-body font-bold text-graphite-ink">Em breve, outras linguagens</p>
             <p className="text-body-sm text-slate-pencil">A plataforma já está pronta para receber novas linguagens.</p>

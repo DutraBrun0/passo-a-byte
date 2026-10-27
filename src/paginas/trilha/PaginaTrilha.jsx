@@ -58,7 +58,7 @@ function ItemLicao({ linguagem, licao, status, ultima }) {
         ) : (
           <Link
             to={`/${linguagem}/licao/${licao.id}`}
-            className={`${classes} border-cloud-mist transition-colors hover:border-signal-orange`}
+            className={`levita ${classes} border-cloud-mist hover:border-signal-orange hover:shadow-xl`}
           >
             {conteudo}
           </Link>

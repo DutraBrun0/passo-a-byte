@@ -42,7 +42,7 @@ function CartaoFase({ linguagem, fase, numero, status }) {
       {conteudo}
     </div>
   ) : (
-    <Link to={`/${linguagem}/robo/${fase.id}`} className={`${classes} transition-colors hover:border-signal-orange`}>
+    <Link to={`/${linguagem}/robo/${fase.id}`} className={`levita ${classes} hover:border-signal-orange hover:shadow-xl`}>
       {conteudo}
     </Link>
   )
