@@ -22,3 +22,15 @@ export function resultadoTempoEsgotado() {
     ms: 0,
   })
 }
+
+/** Resultado de um programa do robô: o trace vem pronto do simulador. */
+export function normalizarResultadoRobo(bruto) {
+  return {
+    trace: bruto.trace,
+    sucesso: bruto.sucesso,
+    motivo: bruto.motivo,
+    console: bruto.console,
+    erro: traduzirErroPython(bruto.erro),
+    metricas: { passos: bruto.passos, ms: bruto.ms },
+  }
+}

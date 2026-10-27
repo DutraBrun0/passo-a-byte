@@ -9,6 +9,8 @@ const PAGINAS = [
   ['licao', '/python/licao/ola-mundo'],
   ['trilha', '/python/trilha'],
   ['progresso', '/progresso'],
+  ['robo', '/python/robo'],
+  ['fase', '/python/robo/primeiros-passos'],
 ]
 
 for (const [nome, caminho] of PAGINAS) {

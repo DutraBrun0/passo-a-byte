@@ -165,3 +165,53 @@ describe('executor Python: testes automáticos', () => {
     expect(r.testes[0].erro.tipo).toBe('LimiteDePassos')
   })
 })
+
+describe('executor Python: robô', () => {
+  const fase = { mapa: '######\n#R..S#\n######', direcao: 'leste' }
+  const robo = (codigo, f = fase, limites = LIMITES_PYTHON) => runtime.executarRobo(codigo, f, { limites })
+
+  it('grava cada ação com a linha do código que a chamou', () => {
+    const r = robo('andar()\nandar()\nandar()')
+    expect(r.erro).toBeNull()
+    expect(r.sucesso).toBe(true)
+    expect(r.trace.map((e) => [e.acao, e.linha, e.estado.x])).toEqual([
+      ['andar', 1, 2],
+      ['andar', 2, 3],
+      ['andar', 3, 4],
+    ])
+  })
+
+  it('aponta a linha de dentro de laços e funções', () => {
+    const r = robo('def passo():\n    andar()\n\nfor i in range(3):\n    passo()')
+    expect(r.trace.map((e) => e.linha)).toEqual([2, 2, 2])
+  })
+
+  it('sensores devolvem bool para o Python e entram no trace', () => {
+    const r = robo('while not na_saida():\n    andar()')
+    expect(r.sucesso).toBe(true)
+    expect(r.trace.filter((e) => e.acao === 'na_saida').map((e) => e.resultado)).toEqual([false, false, false, true])
+  })
+
+  it('print entra no trace na ordem certa', () => {
+    const r = robo('print("oi")\nandar()')
+    expect(r.trace.map((e) => e.tipo)).toEqual(['saida', 'acao'])
+    expect(r.console).toBe('oi\n')
+  })
+
+  it('bater na parede encerra com ErroDoRobo, mesmo com try/except', () => {
+    const r = robo('try:\n    for i in range(9):\n        andar()\nexcept Exception:\n    print("escapei")')
+    expect(r.erro).toMatchObject({ tipo: 'ErroDoRobo', mensagem: 'o Bit bateu na parede', linha: 3 })
+    expect(r.sucesso).toBe(false)
+    expect(r.console).toBe('')
+  })
+
+  it('explica quando o programa termina longe da saída', () => {
+    const r = robo('andar()')
+    expect(r).toMatchObject({ sucesso: false, motivo: 'o programa terminou, mas o Bit não chegou à saída' })
+  })
+
+  it('loop sem fim de sensores para no limite', () => {
+    const r = robo('while not tem_parede("esquerda") or True:\n    pass', fase, { ...LIMITES_PYTHON, passos: 5000 })
+    expect(['LimiteDePassos', 'ErroDoRobo']).toContain(r.erro.tipo)
+  })
+})

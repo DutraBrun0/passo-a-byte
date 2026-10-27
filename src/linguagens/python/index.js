@@ -2,7 +2,7 @@ import { python as suportePython } from '@codemirror/lang-python'
 import { criarEstadoObservavel } from '../../nucleo/execucao/estadoObservavel.js'
 import { SupervisorWorker, TempoEsgotadoError } from '../../nucleo/execucao/SupervisorWorker.js'
 import { LIMITES_PYTHON, TEMPO_LIMITE_WORKER_MS } from './limites.js'
-import { normalizarResultado, resultadoTempoEsgotado } from './resultado.js'
+import { normalizarResultado, normalizarResultadoRobo, resultadoTempoEsgotado } from './resultado.js'
 
 /*
  * Adaptador de Python: única porta de entrada do núcleo para tudo que é Python.
@@ -62,5 +62,29 @@ export const python = {
   async executar(codigo, { entrada = [], testes = [] } = {}) {
     const bruto = await pedir('executar', { codigo, opcoes: { entrada, testes, limites: LIMITES_PYTHON } })
     return bruto ? normalizarResultado(bruto) : resultadoTempoEsgotado()
+  },
+
+  // Capacidade opcional do contrato: Desafios do Robô.
+  robo: {
+    /** Referência da API, mostrada na página da fase (os nomes são da linguagem). */
+    funcoes: [
+      { assinatura: 'andar()', descricao: 'anda uma casa para a frente' },
+      { assinatura: 'virar_esquerda()', descricao: 'gira 90° para a esquerda' },
+      { assinatura: 'virar_direita()', descricao: 'gira 90° para a direita' },
+      { assinatura: 'pegar_chave()', descricao: 'pega a chave da casa atual' },
+      { assinatura: 'tem_parede()', descricao: 'True se há parede à frente (aceita "esquerda" ou "direita")' },
+      { assinatura: 'na_saida()', descricao: 'True se o Bit está na saída' },
+      { assinatura: 'tem_chave()', descricao: 'True se há uma chave na casa atual' },
+    ],
+
+    /** Linhas que contam no limite dos desafios: ignora linhas vazias e comentários. */
+    contarLinhas: (codigo) =>
+      codigo.split('\n').filter((linha) => linha.trim() && !linha.trim().startsWith('#')).length,
+
+    async executar(codigo, { mapa, direcao }) {
+      const bruto = await pedir('executarRobo', { codigo, fase: { mapa, direcao }, opcoes: { limites: LIMITES_PYTHON } })
+      if (!bruto) return { ...resultadoTempoEsgotado(), trace: [], sucesso: false, motivo: null }
+      return normalizarResultadoRobo(bruto)
+    },
   },
 }
