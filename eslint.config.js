@@ -4,13 +4,13 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 
 export default [
-  { ignores: ['dist', 'coverage', 'public/pyodide'] },
+  { ignores: ['dist', 'coverage', 'public/pyodide', 'test-results', 'playwright-report'] },
   {
     files: ['**/*.{js,jsx}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      globals: { ...globals.browser },
+      globals: { ...globals.browser, __PYODIDE_VERSAO__: 'readonly' },
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
     plugins: {
@@ -30,7 +30,7 @@ export default [
     languageOptions: { globals: { ...globals.worker } },
   },
   {
-    files: ['*.config.js', 'scripts/**/*.js', 'tests/js/**/*.js', 'src/**/*.test.{js,jsx}'],
+    files: ['*.config.js', 'scripts/**/*.js', 'tests/**/*.js', 'src/**/*.test.{js,jsx}'],
     languageOptions: { globals: { ...globals.node } },
   },
 ]
