@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head><meta charset="UTF-8" /><title>Teste do executor</title></head>
+  <body>
+    <!-- Página só de teste (servida pelo Vite em dev): expõe o adaptador para o Playwright. -->
+    <script type="module">
+      import { python } from '/src/linguagens/python/index.js'
+      window.fases = []
+      python.assinarCarga((estado) => window.fases.push(estado))
+      window.python = python
+      window.prontoParaTeste = true
+    </script>
+  </body>
+</html>
