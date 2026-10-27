@@ -2,11 +2,12 @@ import { readFileSync } from 'node:fs'
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { conteudoPlugin } from './scripts/vite-plugin-conteudo.js'
 
 const versaoPyodide = JSON.parse(readFileSync(new URL('./node_modules/pyodide/package.json', import.meta.url))).version
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [react(), tailwindcss(), conteudoPlugin()],
   define: {
     __PYODIDE_VERSAO__: JSON.stringify(versaoPyodide),
   },
