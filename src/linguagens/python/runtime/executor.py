@@ -244,7 +244,7 @@ def _teste_funcao(teste, sessao):
 
 
 def _teste_variavel(teste, sessao):
-    nome = teste["nome"]
+    nome = teste["variavel"]
     if nome not in sessao.namespace:
         return False, f"uma variável chamada {nome}", "a variável não foi criada"
     obtido = sessao.namespace[nome]

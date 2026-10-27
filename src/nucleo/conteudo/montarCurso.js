@@ -122,6 +122,7 @@ export function validarCurso(curso, tiposDeTeste) {
     for (const teste of exercicio.testes ?? []) {
       if (!tiposDeTeste.includes(teste.tipo)) problemas.push(`${onde}: tipo de teste desconhecido "${teste.tipo}"`)
       if (!teste.nome) problemas.push(`${onde}: todo teste precisa de "nome" (aparece para o aluno)`)
+      if (teste.tipo === 'variavel' && !teste.variavel) problemas.push(`${onde}: teste de variável precisa de "variavel"`)
     }
   }
   return problemas

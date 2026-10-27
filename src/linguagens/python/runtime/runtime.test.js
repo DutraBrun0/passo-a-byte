@@ -122,15 +122,15 @@ describe('executor Python: testes automáticos', () => {
   it('compara tuplas com listas e conjuntos com listas', () => {
     const r = rodar('par = (1, 2)\nletras = {"a", "b"}', {
       testes: [
-        { tipo: 'variavel', nome: 'par', esperado: [1, 2] },
-        { tipo: 'variavel', nome: 'letras', esperado: ['b', 'a'] },
+        { tipo: 'variavel', variavel: 'par', esperado: [1, 2] },
+        { tipo: 'variavel', variavel: 'letras', esperado: ['b', 'a'] },
       ],
     })
     expect(r.testes.every((t) => t.passou)).toBe(true)
   })
 
   it('verifica o tipo de uma variável', () => {
-    const r = rodar('preco = 9.9', { testes: [{ tipo: 'variavel', nome: 'preco', tipo_esperado: 'float' }] })
+    const r = rodar('preco = 9.9', { testes: [{ tipo: 'variavel', variavel: 'preco', tipo_esperado: 'float' }] })
     expect(r.testes[0].passou).toBe(true)
   })
 
