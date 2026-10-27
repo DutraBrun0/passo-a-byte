@@ -5,13 +5,16 @@
   "description": "Trilha interativa para aprender Python no navegador, com execução real via Pyodide e desafios de robô.",
   "type": "module",
   "scripts": {
+    "predev": "node scripts/copiar-pyodide.js",
     "dev": "vite",
+    "prebuild": "node scripts/copiar-pyodide.js",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint .",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "npm run lint && npm test && npm run build"
+    "check": "npm run lint && npm test && npm run build",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@codemirror/commands": "^6.11.1",
@@ -33,6 +36,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/vite": "^4.1.8",
     "@vitejs/plugin-react": "^4.5.0",
     "eslint": "^9.28.0",
