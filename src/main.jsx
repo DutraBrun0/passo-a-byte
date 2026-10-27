@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router'
 import '@fontsource/jersey-10'
 import '@fontsource-variable/manrope'
 import './index.css'
+import './linguagens/index.js'
 import { rotas } from './rotas.jsx'
 
 const router = createBrowserRouter(rotas)
