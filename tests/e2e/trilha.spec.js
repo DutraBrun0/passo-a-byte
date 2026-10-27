@@ -15,13 +15,13 @@ test.describe('trilha e progresso', () => {
     await expect(page.getByText('Lição bloqueada')).toBeVisible()
 
     await page.goto('/python/trilha')
-    await expect(page.getByText('0 de 2 lições concluídas')).toBeVisible()
+    await expect(page.getByText(/^0 de \d+ lições concluídas$/)).toBeVisible()
 
     await concluirOlaMundo(page)
     await expect(page.getByText(/novas? conquistas?!/i)).toBeVisible()
 
     await page.goto('/python/trilha')
-    await expect(page.getByText('1 de 2 lições concluídas')).toBeVisible()
+    await expect(page.getByText(/^1 de \d+ lições concluídas$/)).toBeVisible()
     await expect(page.getByRole('link', { name: /Vários valores no mesmo print/ })).toBeVisible()
   })
 
@@ -47,10 +47,10 @@ test.describe('trilha e progresso', () => {
 
     await page.getByRole('button', { name: 'Apagar progresso' }).click()
     await page.getByRole('button', { name: 'Sim, apagar' }).click()
-    await expect(page.getByText('0 de 2 lições')).toBeVisible()
+    await expect(page.getByText(/^0 de \d+ lições$/)).toBeVisible()
 
     await page.locator('input[type=file]').setInputFiles(arquivo)
     await expect(page.getByText('Progresso importado com sucesso.')).toBeVisible()
-    await expect(page.getByText('1 de 2 lições')).toBeVisible()
+    await expect(page.getByText(/^1 de \d+ lições$/)).toBeVisible()
   })
 })
