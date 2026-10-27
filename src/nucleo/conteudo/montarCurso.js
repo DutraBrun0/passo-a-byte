@@ -5,6 +5,7 @@
  *   content/<linguagem>/<NN-nivel>/nivel.json
  *   content/<linguagem>/<NN-nivel>/<NN-modulo>/modulo.json
  *   content/<linguagem>/<NN-nivel>/<NN-modulo>/<NN-licao>.md
+ *   content/<linguagem>/robo/<NN-fase>.md          (Desafios do Robô)
  *
  * O prefixo numérico define a ordem; o resto do nome vira o id (slug).
  */
@@ -24,7 +25,7 @@ function partesDoCaminho(caminho) {
 const porOrdem = (a, b) => a.ordem - b.ordem
 
 function cursoVazio(linguagem) {
-  return { linguagem, niveis: [], licoes: new Map(), sequencia: [] }
+  return { linguagem, niveis: [], licoes: new Map(), sequencia: [], fases: [] }
 }
 
 /**
@@ -32,7 +33,7 @@ function cursoVazio(linguagem) {
  *        mapas caminho → conteúdo, no formato do import.meta.glob
  * @returns {Map<string, object>} um curso por linguagem
  */
-export function montarCursos({ niveis = {}, modulos = {}, licoes = {} }) {
+export function montarCursos({ niveis = {}, modulos = {}, licoes = {}, fases = {} }) {
   const cursos = new Map()
   const curso = (linguagem) => {
     if (!cursos.has(linguagem)) cursos.set(linguagem, cursoVazio(linguagem))
@@ -70,7 +71,18 @@ export function montarCursos({ niveis = {}, modulos = {}, licoes = {} }) {
     curso(linguagem).licoes.set(id, licao)
   }
 
+  for (const [caminho, { meta, corpo }] of Object.entries(fases)) {
+    const [linguagem, , arquivo] = partesDoCaminho(caminho)
+    const { ordem, id } = segmento(arquivo)
+    curso(linguagem).fases.push({ ...meta, id, ordem, corpo, caminho })
+  }
+
   for (const atual of cursos.values()) {
+    atual.fases.sort(porOrdem)
+    atual.fases.forEach((fase, i) => {
+      fase.anterior = atual.fases[i - 1]?.id ?? null
+      fase.proxima = atual.fases[i + 1]?.id ?? null
+    })
     atual.niveis.sort(porOrdem)
     for (const nivel of atual.niveis) {
       nivel.modulos.sort(porOrdem)
@@ -110,6 +122,25 @@ export function validarCurso(curso, tiposDeTeste) {
     for (const teste of exercicio.testes ?? []) {
       if (!tiposDeTeste.includes(teste.tipo)) problemas.push(`${onde}: tipo de teste desconhecido "${teste.tipo}"`)
       if (!teste.nome) problemas.push(`${onde}: todo teste precisa de "nome" (aparece para o aluno)`)
+    }
+  }
+  return problemas
+}
+
+/** Problemas nas fases do robô. `lerMapa` vem do simulador (o núcleo valida o próprio formato). */
+export function validarFases(curso, lerMapa) {
+  const problemas = []
+  for (const fase of curso.fases) {
+    const onde = fase.caminho
+    for (const campo of ['titulo', 'mapa', 'direcao', 'solucao', 'dica']) {
+      if (!fase[campo]) problemas.push(`${onde}: falta "${campo}"`)
+    }
+    if (typeof fase.codigo_inicial !== 'string') problemas.push(`${onde}: falta "codigo_inicial"`)
+    if (!Number.isInteger(fase.xp) || fase.xp <= 0) problemas.push(`${onde}: "xp" deve ser um inteiro positivo`)
+    try {
+      lerMapa(fase.mapa ?? '')
+    } catch (erro) {
+      problemas.push(`${onde}: ${erro.message}`)
     }
   }
   return problemas

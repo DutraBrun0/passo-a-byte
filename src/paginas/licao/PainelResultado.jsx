@@ -1,6 +1,6 @@
 import { Pilula } from '../../design-system/componentes/Pilula.jsx'
 
-function CartaoErro({ erro }) {
+export function CartaoErro({ erro }) {
   return (
     <div className="rounded-cards border border-blush-shadow bg-paper-white p-16">
       <p className="text-body font-bold text-midnight-ink">
