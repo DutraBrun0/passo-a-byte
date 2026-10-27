@@ -21,6 +21,7 @@ import { CartaoErro } from '../licao/PainelResultado.jsx'
 import { Labirinto } from './Labirinto.jsx'
 
 const VELOCIDADES = { 1: 'Lenta', 2: 'Normal', 3: 'Rápida', 4: 'Turbo' }
+const abrirComandos = typeof window !== 'undefined' && window.matchMedia('(min-width: 1024px)').matches
 
 export function PaginaFase() {
   const { linguagem, faseId } = useParams()
@@ -159,9 +160,10 @@ function Fase({ adaptador, curso, fase }) {
           </div>
         </Cartao>
 
-        <Cartao className="flex flex-col gap-8">
-          <h2 className="text-body font-bold text-midnight-ink">Comandos do Bit</h2>
-          <ul className="grid gap-4 text-body-sm">
+        {/* Aberto no desktop; no tablet fica recolhido para o editor aparecer logo abaixo do labirinto. */}
+        <Cartao como="details" open={abrirComandos} className="group">
+          <summary className="cursor-pointer rounded-md text-body font-bold text-midnight-ink">Comandos do Bit</summary>
+          <ul className="mt-8 grid gap-4 text-body-sm">
             {adaptador.robo.funcoes.map((funcao) => (
               <li key={funcao.assinatura}>
                 <code className="rounded-md bg-cloud-mist px-4 font-code text-midnight-ink">{funcao.assinatura}</code>{' '}
