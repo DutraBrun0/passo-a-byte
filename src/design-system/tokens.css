@@ -98,6 +98,7 @@
   /* Layout */
   --container-page: 1200px;
   --container-prose: 560px;
+  --container-painel: 320px;
 
   /* Raios */
   --radius-*: initial;

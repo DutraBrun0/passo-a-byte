@@ -22,3 +22,10 @@ describe('sprites', () => {
     expect(dimensoes('nuvem').largura * 4).toBeLessThanOrEqual(120)
   })
 })
+
+describe('conquistas', () => {
+  it('toda conquista aponta para um sprite existente', async () => {
+    const { CONQUISTAS } = await import('../../nucleo/progresso/conquistas.js')
+    for (const conquista of CONQUISTAS) expect(SPRITES[conquista.sprite], conquista.id).toBeDefined()
+  })
+})
