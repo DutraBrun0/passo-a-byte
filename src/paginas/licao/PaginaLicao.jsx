@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link, useParams } from 'react-router'
+import { ConquistasNovas } from '../../componentes/Conquista.jsx'
 import { PainelCarregamento } from '../../componentes/PainelCarregamento.jsx'
 import { Botao } from '../../design-system/componentes/Botao.jsx'
 import { Cartao } from '../../design-system/componentes/Cartao.jsx'
@@ -10,6 +11,8 @@ import { Markdown } from '../../editor/Markdown.jsx'
 import { obterCurso } from '../../nucleo/conteudo/cursos.js'
 import { useEstadoCarga } from '../../nucleo/execucao/useEstadoCarga.js'
 import { obterLinguagem } from '../../nucleo/linguagens/registro.js'
+import { chave, statusLicao } from '../../nucleo/progresso/regras.js'
+import { useProgresso } from '../../nucleo/progresso/useProgresso.js'
 import { NaoEncontrada } from '../NaoEncontrada.jsx'
 import { Dicas } from './Dicas.jsx'
 import { PainelResultado } from './PainelResultado.jsx'
@@ -20,9 +23,46 @@ export function PaginaLicao() {
   const adaptador = obterLinguagem(linguagem)
   const curso = obterCurso(linguagem)
   const licao = curso?.licoes.get(licaoId)
+  const bloqueada = useProgresso((s) => licao && statusLicao(s.dados, linguagem, licao) === 'bloqueada')
   if (!adaptador || !licao) return <NaoEncontrada />
+  if (bloqueada) return <LicaoBloqueada linguagem={linguagem} licao={licao} curso={curso} />
   // A key recria o estado ao trocar de lição.
   return <Licao key={licao.id} adaptador={adaptador} curso={curso} licao={licao} />
+}
+
+function LicaoBloqueada({ linguagem, licao, curso }) {
+  const anterior = curso.licoes.get(licao.anterior)
+  return (
+    <div className="mx-auto flex max-w-prose flex-col items-start gap-16 px-16 py-96">
+      <Pilula tom="bloqueado">Lição bloqueada</Pilula>
+      <Titulo nivel={1} tamanho="heading">
+        {licao.titulo}
+      </Titulo>
+      <p className="text-slate-pencil">
+        Esta lição abre quando você concluir a anterior, <strong className="text-graphite-ink">{anterior.titulo}</strong>.
+      </p>
+      <Botao variante="primario" para={`/${linguagem}/licao/${anterior.id}`} icone="seta">
+        Ir para a lição anterior
+      </Botao>
+    </div>
+  )
+}
+
+/** Liga a lição ao progresso salvo: rascunho, tentativas, dicas e conclusão. */
+function useProgressoLicao(id) {
+  const registro = useProgresso((s) => s.dados.licoes[id])
+  const acoes = useProgresso.getState()
+  return {
+    rascunho: registro?.rascunho ?? null,
+    tentativas: registro?.tentativas ?? 0,
+    dicasVistas: registro?.dicasVistas ?? 0,
+    concluida: Boolean(registro?.concluidaEm),
+    xpGanho: registro?.xpGanho,
+    salvarRascunho: (codigo) => acoes.salvarRascunho(id, codigo),
+    revelarDica: (total) => acoes.revelarDica(id, total),
+    marcarSolucaoVista: () => acoes.marcarSolucaoVista(id),
+    registrarTentativa: (dados) => acoes.registrarTentativa(id, dados),
+  }
 }
 
 function Licao({ adaptador, curso, licao }) {
@@ -33,12 +73,21 @@ function Licao({ adaptador, curso, licao }) {
   const nivel = curso.niveis.find((n) => n.id === licao.nivelId)
   const modulo = nivel.modulos.find((m) => m.id === licao.moduloId)
 
-  const [codigo, setCodigo] = useState(exercicio.codigo_inicial)
+  const progresso = useProgressoLicao(chave(linguagem, licao.id))
+  const { tentativas, dicasVistas, concluida } = progresso
+
+  const [codigo, setCodigo] = useState(progresso.rascunho ?? exercicio.codigo_inicial)
   const [resultado, setResultado] = useState(null)
   const [executando, setExecutando] = useState(false)
-  const [tentativas, setTentativas] = useState(0)
-  const [dicasVistas, setDicasVistas] = useState(0)
-  const [concluida, setConcluida] = useState(false)
+  const [conquistasNovas, setConquistasNovas] = useState([])
+
+  // Salva o rascunho pouco depois de o aluno parar de digitar.
+  const { salvarRascunho } = progresso
+  useEffect(() => {
+    const temporizador = setTimeout(() => salvarRascunho(codigo), 400)
+    return () => clearTimeout(temporizador)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- salvarRascunho muda a cada render, o código não
+  }, [codigo])
 
   const executar = async () => {
     if (executando) return
@@ -46,8 +95,7 @@ function Licao({ adaptador, curso, licao }) {
     try {
       const novo = await adaptador.executar(codigo, { entrada: exercicio.entrada ?? [], testes: exercicio.testes })
       setResultado(novo)
-      setTentativas((n) => n + 1)
-      if (novo.passou) setConcluida(true)
+      setConquistasNovas(progresso.registrarTentativa({ passou: novo.passou, xp: licao.xp }))
     } finally {
       setExecutando(false)
     }
@@ -84,14 +132,16 @@ function Licao({ adaptador, curso, licao }) {
           <Dicas
             dicas={exercicio.dicas}
             vistas={dicasVistas}
-            aoRevelar={() => setDicasVistas((n) => n + 1)}
+            aoRevelar={() => progresso.revelarDica(exercicio.dicas.length)}
             parser={parser}
             linguagem={linguagem}
           />
           <Solucao
             exercicio={exercicio}
             liberada={concluida || tentativas >= TENTATIVAS_PARA_SOLUCAO}
+            concluida={concluida}
             tentativas={tentativas}
+            aoVer={progresso.marcarSolucaoVista}
             parser={parser}
             linguagem={linguagem}
           />
@@ -137,7 +187,8 @@ function Licao({ adaptador, curso, licao }) {
           <Cartao className="flex flex-col gap-16 sm:flex-row sm:items-center sm:justify-between" role="status">
             <div>
               <p className="text-body font-bold text-midnight-ink">Exercício concluído!</p>
-              <p className="text-body-sm text-slate-pencil">Você ganhou {licao.xp} XP.</p>
+              <p className="text-body-sm text-slate-pencil">Você ganhou {progresso.xpGanho ?? licao.xp} XP.</p>
+              <ConquistasNovas conquistas={conquistasNovas} />
             </div>
             <Botao
               variante="primario"

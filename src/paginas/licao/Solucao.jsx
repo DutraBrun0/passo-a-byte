@@ -10,7 +10,7 @@ export const TENTATIVAS_PARA_SOLUCAO = 3
  * Solução comentada. Fica trancada até o aluno tentar algumas vezes ou acertar,
  * para que a primeira reação a um erro seja ler o feedback, não a resposta.
  */
-export function Solucao({ exercicio, liberada, tentativas, aoVer, parser, linguagem }) {
+export function Solucao({ exercicio, liberada, concluida, tentativas, aoVer, parser, linguagem }) {
   const [aberta, setAberta] = useState(false)
 
   const abrir = () => {
@@ -36,10 +36,11 @@ export function Solucao({ exercicio, liberada, tentativas, aoVer, parser, lingua
           <Markdown texto={exercicio.explicacao_solucao} parser={parser} linguagem={linguagem} className="text-body-sm" />
         </div>
       ) : (
-        <div>
+        <div className="flex flex-wrap items-center gap-8">
           <Botao variante="secundario" tamanho="sm" onClick={abrir}>
             Ver a solução
           </Botao>
+          {!concluida && <span className="text-caption text-slate-pencil">Ver antes de acertar dá metade do XP.</span>}
         </div>
       )}
     </section>
