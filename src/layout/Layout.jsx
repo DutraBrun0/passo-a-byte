@@ -1,8 +1,15 @@
-import { Outlet } from 'react-router'
+import { useRef } from 'react'
+import { Outlet, useLocation } from 'react-router'
 import { BarraNav } from './BarraNav.jsx'
+import { BarraRolagem } from './BarraRolagem.jsx'
 import { Rodape } from './Rodape.jsx'
+import { useRevelarAoRolar } from './useRevelarAoRolar.js'
 
 export function Layout() {
+  const { pathname } = useLocation()
+  const conteudo = useRef(null)
+  useRevelarAoRolar(conteudo)
+
   return (
     <div className="flex min-h-dvh flex-col">
       <a
@@ -11,9 +18,13 @@ export function Layout() {
       >
         Pular para o conteúdo
       </a>
+      <BarraRolagem />
       <BarraNav />
-      <main id="conteudo" tabIndex={-1} className="relative isolate flex-1">
-        <Outlet />
+      <main id="conteudo" ref={conteudo} tabIndex={-1} className="relative isolate flex-1">
+        {/* A chave reinicia a animação de entrada a cada troca de página */}
+        <div key={pathname} className="animate-entra">
+          <Outlet />
+        </div>
       </main>
       <Rodape />
     </div>

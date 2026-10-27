@@ -10,7 +10,8 @@ import { PixelSprite } from '../sprites/PixelSprite.jsx'
  * Todos com raio de 6px.
  */
 const BASE =
-  'inline-flex items-center justify-center gap-8 rounded-buttons font-medium transition-colors ' +
+  'inline-flex items-center justify-center gap-8 rounded-buttons font-medium ' +
+  'transition-[color,background-color,border-color,text-decoration-color,translate] duration-150 active:translate-y-[2px] ' +
   'disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50'
 
 const VARIANTES = {

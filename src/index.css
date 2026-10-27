@@ -147,6 +147,43 @@
   }
 }
 
+@layer components {
+  /*
+   * Revelação ao rolar: o elemento entra de baixo quando chega na tela
+   * (useRevelarAoRolar marca com data-revelado). --atraso escalona os irmãos.
+   */
+  [data-revelar] {
+    opacity: 0;
+    translate: 0 16px;
+    transition:
+      opacity 480ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      translate 480ms cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition-delay: var(--atraso, 0ms);
+  }
+  [data-revelar][data-revelado] {
+    opacity: 1;
+    translate: 0 0;
+  }
+
+  /* Card vivo: sobe um pouco no hover e afunda no clique, como um botão de fliperama */
+  .levita {
+    transition:
+      translate 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 180ms ease,
+      border-color 150ms ease;
+  }
+  .levita:hover {
+    translate: 0 -4px;
+  }
+  .levita:active {
+    translate: 0 0;
+    transition-duration: 60ms;
+  }
+  .levita:hover .balanca-no-hover {
+    animation: var(--animate-balanca);
+  }
+}
+
 @layer utilities {
   /* Pixel art: sem suavização ao escalar */
   .pixelated {
@@ -162,5 +199,10 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+
+  [data-revelar] {
+    opacity: 1;
+    translate: none;
   }
 }
