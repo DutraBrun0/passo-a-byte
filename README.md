@@ -1,16 +1,16 @@
 <div align="center">
 
 <a href="https://passoabyte.vercel.app/">
-  <img src="docs/readme/banner.svg" alt="Passo a Byte: aprenda Python direto no navegador, uma lição de cada vez" width="100%">
+  <img src="docs/banner.svg" alt="Passo a Byte: aprenda Python direto no navegador, uma lição de cada vez" width="100%">
 </a>
 
 <br><br>
 
 <a href="https://passoabyte.vercel.app/"><img src="docs/readme/botao-site.svg" alt="Acessar o site" height="46"></a>
 &nbsp;
-<a href="#como-rodar"><img src="docs/readme/botao-rodar.svg" alt="Rodar localmente" height="46"></a>
+<a href="#como-rodar"><img src="docs/rbotao-rodar.svg" alt="Rodar localmente" height="46"></a>
 &nbsp;
-<a href="#como-adicionar-uma-licao"><img src="docs/readme/botao-licao.svg" alt="Escrever uma lição" height="46"></a>
+<a href="#como-adicionar-uma-licao"><img src="docs/botao-licao.svg" alt="Escrever uma lição" height="46"></a>
 
 <br><br>
 
@@ -29,7 +29,7 @@
 
 <br>
 
-## <img src="docs/readme/icone-sobre.svg" height="30" align="center"> Sobre o projeto
+## <img src="docs/icone-sobre.svg" height="30" align="center"> Sobre o projeto
 
 O **Passo a Byte** é uma plataforma para aprender programação do zero, sem nenhuma barreira no caminho:
 **não precisa instalar nada, não precisa criar conta e não existe servidor**. Você abre o site, lê uma explicação
@@ -40,7 +40,7 @@ Web Worker. As mensagens de erro e o comportamento são exatamente os do Python 
 A diferença é que aqui os erros chegam **traduzidos e explicados em português**, com a linha marcada no editor.
 
 <p align="center">
-  <img src="docs/readme/destaques.svg" alt="Lições curtas, Desafios do Robô e Progresso" width="100%">
+  <img src="docs/destaques.svg" alt="Lições curtas, Desafios do Robô e Progresso" width="100%">
 </p>
 
 <p align="center">
@@ -94,10 +94,10 @@ A diferença é que aqui os erros chegam **traduzidos e explicados em português
 </tr>
 </table>
 
-## <img src="docs/readme/icone-robo.svg" height="32" align="center"> Desafios do Robô
+## <img src="docs/icone-robo.svg" height="32" align="center"> Desafios do Robô
 
 <p align="center">
-  <img src="docs/readme/fase.svg" alt="O Bit no início de um corredor, com a bandeira de chegada no fim" width="480">
+  <img src="docs/fase.svg" alt="O Bit no início de um corredor, com a bandeira de chegada no fim" width="480">
 </p>
 
 Você programa o **Bit** com funções como `andar()` para atravessar labirintos. O código roda e depois é
@@ -112,7 +112,7 @@ repetir comando: é preciso usar laços.
 | `03` | A escada | `07` | Chaves espalhadas |
 | `04` | Corredor sem fim | `08` | O labirinto *(regra da mão direita)* |
 
-## <img src="docs/readme/icone-conteudo.svg" height="30" align="center"> Conteúdo
+## <img src="docs/icone-conteudo.svg" height="30" align="center"> Conteúdo
 
 | Nível | Módulos | Status |
 |-------|---------|:------:|
@@ -162,7 +162,7 @@ npm run dev          # http://localhost:5173
 | `npm run check` | lint + testes + build, o mesmo que a CI roda |
 | `npm run demo:gif` | grava o `docs/demo.gif` com o Playwright |
 
-## <img src="docs/readme/icone-arquitetura.svg" height="30" align="center"> Como funciona por dentro
+## <img src="docs/icone-arquitetura.svg" height="30" align="center"> Como funciona por dentro
 
 ### Arquitetura
 
@@ -186,7 +186,7 @@ src/
 └── paginas/         início, trilha, lição, robô e progresso
 ```
 
-### <img src="docs/readme/icone-chave.svg" height="24" align="center"> Execução segura do código do aluno
+### <img src="docs/icone-chave.svg" height="24" align="center"> Execução segura do código do aluno
 
 | | Camada | Como funciona |
 |:-:|--------|---------------|
@@ -322,5 +322,5 @@ As imagens deste README (banner, botões, cards e ícones) foram geradas a parti
 <br>
 
 <a href="https://github.com/DutraBrun0">
-  <img src="docs/readme/rodape.svg" alt="Passo a Byte, feito com Python, pixels e paciência por DutraBrun0" width="100%">
+  <img src="docs/rodape.svg" alt="Passo a Byte, feito com Python, pixels e paciência por DutraBrun0" width="100%">
 </a>
