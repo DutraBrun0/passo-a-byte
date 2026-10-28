@@ -4,16 +4,6 @@
   <img src="docs/banner.svg" alt="Passo a Byte: aprenda Python direto no navegador, uma lição de cada vez" width="100%">
 </a>
 
-<br><br>
-
-<a href="https://passoabyte.vercel.app/"><img src="docs/botao-site.svg" alt="Acessar o site" height="46"></a>
-&nbsp;
-<a href="#como-rodar"><img src="docs/botao-rodar.svg" alt="Rodar localmente" height="46"></a>
-&nbsp;
-<a href="#como-adicionar-uma-licao"><img src="docs/botao-licao.svg" alt="Escrever uma lição" height="46"></a>
-
-<br><br>
-
 <img src="https://img.shields.io/badge/React_19-232629?style=for-the-badge&logo=react&logoColor=ff5e24" alt="React 19">
 <img src="https://img.shields.io/badge/Vite_6-232629?style=for-the-badge&logo=vite&logoColor=ff5e24" alt="Vite 6">
 <img src="https://img.shields.io/badge/Tailwind_4-232629?style=for-the-badge&logo=tailwindcss&logoColor=ff5e24" alt="Tailwind CSS 4">
