@@ -1,8 +1,4 @@
-
-
-<br>
-
-## <img src="docs/icone-sobre.svg" height="30" align="center"> Sobre o projeto
+# Sobre o projeto
 
 O **Passo a Byte** é uma plataforma para aprender programação do zero, sem nenhuma barreira no caminho:
 **não precisa instalar nada, não precisa criar conta e não existe servidor**. Você abre o site, lê uma explicação
