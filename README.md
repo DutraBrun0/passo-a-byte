@@ -53,7 +53,7 @@ A diferença é que aqui os erros chegam **traduzidos e explicados em português
 <tr>
 <td width="50%" valign="top">
 
-**📚 Trilha de lições**
+** Trilha de lições**
 - Níveis → módulos → lições curtas, liberadas em sequência
 - Explicação de um lado, editor **CodeMirror 6** e testes do outro
 - Execução com <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
@@ -63,7 +63,7 @@ A diferença é que aqui os erros chegam **traduzidos e explicados em português
 </td>
 <td width="50%" valign="top">
 
-**💡 Ajuda na medida certa**
+** Ajuda na medida certa**
 - Dicas reveladas uma de cada vez
 - Solução comentada liberada depois de 3 tentativas
 - Ver a solução antes de acertar vale metade do XP
@@ -75,7 +75,7 @@ A diferença é que aqui os erros chegam **traduzidos e explicados em português
 <tr>
 <td width="50%" valign="top">
 
-**🏆 Progresso**
+** Progresso**
 - XP por lição e sequência de dias estudando
 - 10 conquistas em pixel art
 - Tudo salvo no navegador (`localStorage`)
@@ -84,7 +84,7 @@ A diferença é que aqui os erros chegam **traduzidos e explicados em português
 </td>
 <td width="50%" valign="top">
 
-**♿ Experiência**
+** Experiência**
 - Tela de carregamento em pixel art com o download real
 - Responsivo para desktop e tablet
 - Navegação por teclado e foco visível
@@ -120,7 +120,7 @@ repetir comando: é preciso usar laços.
 | **2 · Básico** | Laços `for` · Laços `while` · Listas · Strings · Funções | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
 | **3 · Intermediário** | Dicionários · Tuplas e conjuntos · Funções · Erros · Compreensões · Biblioteca padrão | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
 | **4 · Avançado** | Classes · Herança · Decoradores e geradores · Recursão · Algoritmos · Testes | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
-| **🤖 Robô** | 8 fases | <img src="https://img.shields.io/badge/8_fases-ff5e24?style=flat-square" alt="Completo, 8 fases"> |
+| ** Robô** | 8 fases | <img src="https://img.shields.io/badge/8_fases-ff5e24?style=flat-square" alt="Completo, 8 fases"> |
 
 > [!NOTE]
 > Os níveis 2 a 4 já aparecem na trilha com seus módulos. Falta escrever as lições, o que é feito só com
