@@ -1,21 +1,4 @@
-<div align="center">
 
-<a href="https://passoabyte.vercel.app/">
-  <img src="docs/banner.svg" alt="Passo a Byte: aprenda Python direto no navegador, uma lição de cada vez" width="100%">
-</a>
-
-<img src="https://img.shields.io/badge/React_19-232629?style=for-the-badge&logo=react&logoColor=ff5e24" alt="React 19">
-<img src="https://img.shields.io/badge/Vite_6-232629?style=for-the-badge&logo=vite&logoColor=ff5e24" alt="Vite 6">
-<img src="https://img.shields.io/badge/Tailwind_4-232629?style=for-the-badge&logo=tailwindcss&logoColor=ff5e24" alt="Tailwind CSS 4">
-<img src="https://img.shields.io/badge/Pyodide_·_Python_3.14-232629?style=for-the-badge&logo=python&logoColor=ff5e24" alt="Pyodide com Python 3.14">
-<img src="https://img.shields.io/badge/CodeMirror_6-232629?style=for-the-badge&logo=codemirror&logoColor=ff5e24" alt="CodeMirror 6">
-<br>
-<img src="https://img.shields.io/badge/Vitest-6c3200?style=for-the-badge&logo=vitest&logoColor=f5e6dc" alt="Vitest">
-<img src="https://img.shields.io/badge/Playwright-6c3200?style=for-the-badge&logo=playwright&logoColor=f5e6dc" alt="Playwright">
-<img src="https://img.shields.io/badge/GitHub_Actions-6c3200?style=for-the-badge&logo=githubactions&logoColor=f5e6dc" alt="GitHub Actions">
-<img src="https://img.shields.io/badge/Vercel-6c3200?style=for-the-badge&logo=vercel&logoColor=f5e6dc" alt="Vercel">
-
-</div>
 
 <br>
 
