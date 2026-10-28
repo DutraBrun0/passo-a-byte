@@ -95,7 +95,7 @@ repetir comando: é preciso usar laços.
 > Os níveis 2 a 4 já aparecem na trilha com seus módulos. Falta escrever as lições, o que é feito só com
 > arquivos Markdown, sem mexer em código.
 
-## <img src="docs/readme/icone-tecnologias.svg" height="30" align="center"> Tecnologias
+## <img src="docs/icone-tecnologias.svg" height="30" align="center"> Tecnologias
 
 | Área | Ferramentas |
 |------|-------------|
@@ -109,7 +109,7 @@ repetir comando: é preciso usar laços.
 
 <a id="como-rodar"></a>
 
-## <img src="docs/readme/icone-rodar.svg" height="30" align="center"> Como rodar
+## <img src="docs/icone-rodar.svg" height="30" align="center"> Como rodar
 
 > [!TIP]
 > Requisito: **Node.js 20** ou mais recente.
@@ -259,9 +259,7 @@ Texto da lição em Markdown, com exemplos.
 - **GitHub Actions** ([`ci.yml`](.github/workflows/ci.yml)): lint, testes e build a cada push e pull request,
   seguidos dos testes no navegador.
 
-## <img src="docs/readme/icone-design.svg" height="30" align="center"> Design
-
-O visual segue o [DESIGN.md](DESIGN.md), e este README usa a mesma paleta:
+## <img src="docs/icone-design.svg" height="30" align="center"> Design
 
 <p>
 <img src="https://img.shields.io/badge/Signal_Orange-ff5e24?style=for-the-badge" alt="Signal Orange #ff5e24">
@@ -279,7 +277,7 @@ O visual segue o [DESIGN.md](DESIGN.md), e este README usa a mesma paleta:
 
 As imagens deste README (banner, botões, cards e ícones) foram geradas a partir dos mesmos sprites do site.
 
-## <img src="docs/readme/icone-proximos.svg" height="32" align="center"> Próximos passos
+## <img src="docs/icone-proximos.svg" height="32" align="center"> Próximos passos
 
 - [ ] Escrever as lições dos níveis Básico, Intermediário e Avançado
 - [ ] Editor de fases do robô com compartilhamento por link
