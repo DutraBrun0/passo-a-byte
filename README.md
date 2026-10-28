@@ -6,9 +6,9 @@
 
 <br><br>
 
-<a href="https://passoabyte.vercel.app/"><img src="docs/readme/botao-site.svg" alt="Acessar o site" height="46"></a>
+<a href="https://passoabyte.vercel.app/"><img src="docs/botao-site.svg" alt="Acessar o site" height="46"></a>
 &nbsp;
-<a href="#como-rodar"><img src="docs/rbotao-rodar.svg" alt="Rodar localmente" height="46"></a>
+<a href="#como-rodar"><img src="docs/botao-rodar.svg" alt="Rodar localmente" height="46"></a>
 &nbsp;
 <a href="#como-adicionar-uma-licao"><img src="docs/botao-licao.svg" alt="Escrever uma lição" height="46"></a>
 
