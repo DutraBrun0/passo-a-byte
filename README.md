@@ -16,7 +16,7 @@ A diferença é que aqui os erros chegam **traduzidos e explicados em português
   <img src="docs/demo.gif" alt="Demonstração: uma lição corrigida na hora e o Bit resolvendo a fase Espiral" width="100%">
 </p>
 
-## <img src="docs/readme/icone-funcionalidades.svg" height="30" align="center"> Funcionalidades
+## <img src="docs/icone-funcionalidades.svg" height="30" align="center"> Funcionalidades
 
 <table>
 <tr>
