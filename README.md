@@ -1,101 +1,149 @@
 <div align="center">
 
-# Passo a Byte
+<a href="https://passoabyte.vercel.app/">
+  <img src="docs/readme/banner.svg" alt="Passo a Byte: aprenda Python direto no navegador, uma lição de cada vez" width="100%">
+</a>
 
-**Aprenda Python direto no navegador, uma lição de cada vez.**
+<br><br>
 
-Lições curtas, editor de código, Python de verdade rodando no seu navegador e correção automática
-com mensagens de erro em português. E um robozinho, o Bit, que executa o seu código linha por linha.
+<a href="https://passoabyte.vercel.app/"><img src="docs/readme/botao-site.svg" alt="Acessar o site" height="46"></a>
+&nbsp;
+<a href="#como-rodar"><img src="docs/readme/botao-rodar.svg" alt="Rodar localmente" height="46"></a>
+&nbsp;
+<a href="#como-adicionar-uma-licao"><img src="docs/readme/botao-licao.svg" alt="Escrever uma lição" height="46"></a>
 
-[**▶ Acessar o site**](https://passoabyte.vercel.app/)
+<br><br>
 
-![React](https://img.shields.io/badge/React_19-20232a?logo=react&logoColor=61dafb)
-![Vite](https://img.shields.io/badge/Vite_6-646cff?logo=vite&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_4-0f172a?logo=tailwindcss&logoColor=38bdf8)
-![Pyodide](https://img.shields.io/badge/Pyodide-Python_3.14-3776ab?logo=python&logoColor=ffd43b)
-![Vitest](https://img.shields.io/badge/Vitest-6e9f18?logo=vitest&logoColor=white)
-![Playwright](https://img.shields.io/badge/Playwright-2ead33?logo=playwright&logoColor=white)
-
-![Demonstração: uma lição corrigida na hora e o Bit resolvendo a fase Espiral](docs/demo.gif)
+<img src="https://img.shields.io/badge/React_19-232629?style=for-the-badge&logo=react&logoColor=ff5e24" alt="React 19">
+<img src="https://img.shields.io/badge/Vite_6-232629?style=for-the-badge&logo=vite&logoColor=ff5e24" alt="Vite 6">
+<img src="https://img.shields.io/badge/Tailwind_4-232629?style=for-the-badge&logo=tailwindcss&logoColor=ff5e24" alt="Tailwind CSS 4">
+<img src="https://img.shields.io/badge/Pyodide_·_Python_3.14-232629?style=for-the-badge&logo=python&logoColor=ff5e24" alt="Pyodide com Python 3.14">
+<img src="https://img.shields.io/badge/CodeMirror_6-232629?style=for-the-badge&logo=codemirror&logoColor=ff5e24" alt="CodeMirror 6">
+<br>
+<img src="https://img.shields.io/badge/Vitest-6c3200?style=for-the-badge&logo=vitest&logoColor=f5e6dc" alt="Vitest">
+<img src="https://img.shields.io/badge/Playwright-6c3200?style=for-the-badge&logo=playwright&logoColor=f5e6dc" alt="Playwright">
+<img src="https://img.shields.io/badge/GitHub_Actions-6c3200?style=for-the-badge&logo=githubactions&logoColor=f5e6dc" alt="GitHub Actions">
+<img src="https://img.shields.io/badge/Vercel-6c3200?style=for-the-badge&logo=vercel&logoColor=f5e6dc" alt="Vercel">
 
 </div>
 
----
+<br>
 
-## Sobre o projeto
+## <img src="docs/readme/icone-sobre.svg" height="30" align="center"> Sobre o projeto
 
-O **Passo a Byte** é uma plataforma de ensino de programação para quem está começando do zero. A ideia é tirar
-todas as barreiras do primeiro contato com o código: **não precisa instalar nada, não precisa criar conta e não
-precisa de servidor**. Você abre o site, lê uma explicação curta, escreve o código e recebe a correção na hora.
+O **Passo a Byte** é uma plataforma para aprender programação do zero, sem nenhuma barreira no caminho:
+**não precisa instalar nada, não precisa criar conta e não existe servidor**. Você abre o site, lê uma explicação
+curta, escreve o código e recebe a correção na hora.
 
-O Python que roda no site não é uma imitação: é o **CPython 3.14 compilado para WebAssembly** (Pyodide), executado
-num Web Worker. Isso significa que as mensagens de erro e o comportamento são exatamente os mesmos do Python que a
-pessoa vai instalar no computador depois. A diferença é que aqui os erros chegam **traduzidos e explicados em
-português**, com a linha marcada no editor.
+O Python do site não é uma imitação: é o **CPython 3.14 compilado para WebAssembly** (Pyodide), rodando num
+Web Worker. As mensagens de erro e o comportamento são exatamente os do Python que a pessoa vai instalar depois.
+A diferença é que aqui os erros chegam **traduzidos e explicados em português**, com a linha marcada no editor.
 
-Todo o progresso fica salvo no próprio navegador (`localStorage`), com opção de exportar e importar um backup em JSON.
+<p align="center">
+  <img src="docs/readme/destaques.svg" alt="Lições curtas, Desafios do Robô e Progresso" width="100%">
+</p>
 
-## Funcionalidades
+<p align="center">
+  <img src="docs/demo.gif" alt="Demonstração: uma lição corrigida na hora e o Bit resolvendo a fase Espiral" width="100%">
+</p>
 
-### 📚 Trilha de lições
-- Níveis divididos em módulos, e módulos divididos em lições curtas, liberadas em sequência.
-- Cada lição tem a explicação com exemplos de um lado e o **editor (CodeMirror 6)**, a saída e os testes do outro.
-- Execução com `Ctrl+Enter`, resultado de cada teste com "esperado" × "seu código produziu".
-- **Dicas** reveladas uma de cada vez e **solução comentada** liberada depois de 3 tentativas
-  (ver a solução antes de acertar vale metade do XP).
-- `input()` simulado: cada teste fornece o que o "usuário" digitaria.
+## <img src="docs/readme/icone-funcionalidades.svg" height="30" align="center"> Funcionalidades
 
-### 🤖 Desafios do Robô
-Você programa o **Bit** com funções como `andar()` para atravessar labirintos em pixel art. O código é executado e
-reproduzido passo a passo, com a linha atual destacada no editor.
+<table>
+<tr>
+<td width="50%" valign="top">
 
-| # | Fase | # | Fase |
-|---|------|---|------|
-| 1 | Primeiros passos | 5 | A chave |
-| 2 | A primeira curva | 6 | Espiral |
-| 3 | A escada | 7 | Chaves espalhadas |
-| 4 | Corredor sem fim | 8 | O labirinto (regra da mão direita) |
+**📚 Trilha de lições**
+- Níveis → módulos → lições curtas, liberadas em sequência
+- Explicação de um lado, editor **CodeMirror 6** e testes do outro
+- Execução com <kbd>Ctrl</kbd> + <kbd>Enter</kbd>
+- Cada teste mostra "esperado" × "seu código produziu"
+- `input()` simulado: o teste "digita" pelo usuário
 
-Controles de **Executar, Pausar, Passo a passo, Reiniciar** e velocidade. As fases mais avançadas têm **limite de
-linhas**, o que obriga o uso de laços em vez de repetir comandos.
+</td>
+<td width="50%" valign="top">
 
-### 🏆 Progresso e conquistas
-- XP por lição, sequência de dias estudando e **10 conquistas** em pixel art.
-- Backup do progresso em arquivo JSON (exportar e importar).
+**💡 Ajuda na medida certa**
+- Dicas reveladas uma de cada vez
+- Solução comentada liberada depois de 3 tentativas
+- Ver a solução antes de acertar vale metade do XP
+- Erros traduzidos com título, explicação e linha marcada
+- Rascunho do código salvo automaticamente
 
-### ♿ Experiência
-- Tela de carregamento do Python em pixel art, mostrando o progresso real do download.
-- Responsivo para desktop e tablet, navegação por teclado, foco visível, `prefers-reduced-motion` e regiões `aria-live`.
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
 
-## Conteúdo disponível
+**🏆 Progresso**
+- XP por lição e sequência de dias estudando
+- 10 conquistas em pixel art
+- Tudo salvo no navegador (`localStorage`)
+- Backup em JSON: exportar e importar
+
+</td>
+<td width="50%" valign="top">
+
+**♿ Experiência**
+- Tela de carregamento em pixel art com o download real
+- Responsivo para desktop e tablet
+- Navegação por teclado e foco visível
+- `prefers-reduced-motion` e regiões `aria-live`
+
+</td>
+</tr>
+</table>
+
+## <img src="docs/readme/icone-robo.svg" height="32" align="center"> Desafios do Robô
+
+<p align="center">
+  <img src="docs/readme/fase.svg" alt="O Bit no início de um corredor, com a bandeira de chegada no fim" width="480">
+</p>
+
+Você programa o **Bit** com funções como `andar()` para atravessar labirintos. O código roda e depois é
+reproduzido passo a passo, com a linha atual destacada no editor. Tem **Executar, Pausar, Passo a passo,
+Reiniciar** e controle de velocidade. As fases mais difíceis têm **limite de linhas**, então não dá para
+repetir comando: é preciso usar laços.
+
+| Fase | Nome | Fase | Nome |
+|:----:|------|:----:|------|
+| `01` | Primeiros passos | `05` | A chave |
+| `02` | A primeira curva | `06` | Espiral |
+| `03` | A escada | `07` | Chaves espalhadas |
+| `04` | Corredor sem fim | `08` | O labirinto *(regra da mão direita)* |
+
+## <img src="docs/readme/icone-conteudo.svg" height="30" align="center"> Conteúdo
 
 | Nível | Módulos | Status |
-|-------|---------|--------|
-| **1 · Iniciante** | Mostrando coisas na tela, Variáveis, Tipos de dados, Operadores, Conversando com o usuário, Tomando decisões | ✅ Completo (22 lições) |
-| **2 · Básico** | Laços `for`, laços `while`, listas, strings, funções | 🚧 Em construção |
-| **3 · Intermediário** | Dicionários, tuplas e conjuntos, funções, erros, compreensões, biblioteca padrão | 🚧 Em construção |
-| **4 · Avançado** | Classes, herança, decoradores e geradores, recursão, algoritmos, testes | 🚧 Em construção |
-| **Desafios do Robô** | 8 fases | ✅ Completo |
+|-------|---------|:------:|
+| **1 · Iniciante** | Mostrando coisas na tela · Variáveis · Tipos de dados · Operadores · Conversando com o usuário · Tomando decisões | <img src="https://img.shields.io/badge/22_lições-ff5e24?style=flat-square" alt="Completo, 22 lições"> |
+| **2 · Básico** | Laços `for` · Laços `while` · Listas · Strings · Funções | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
+| **3 · Intermediário** | Dicionários · Tuplas e conjuntos · Funções · Erros · Compreensões · Biblioteca padrão | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
+| **4 · Avançado** | Classes · Herança · Decoradores e geradores · Recursão · Algoritmos · Testes | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
+| **🤖 Robô** | 8 fases | <img src="https://img.shields.io/badge/8_fases-ff5e24?style=flat-square" alt="Completo, 8 fases"> |
 
-Os níveis 2 a 4 já aparecem na trilha com seus módulos; falta escrever as lições, o que é feito só com arquivos
-Markdown, sem mexer em código.
+> [!NOTE]
+> Os níveis 2 a 4 já aparecem na trilha com seus módulos. Falta escrever as lições, o que é feito só com
+> arquivos Markdown, sem mexer em código.
 
-## Tecnologias
+## <img src="docs/readme/icone-tecnologias.svg" height="30" align="center"> Tecnologias
 
 | Área | Ferramentas |
 |------|-------------|
-| Interface | React 19, React Router 7, Tailwind CSS 4 |
-| Editor | CodeMirror 6 (`@codemirror/lang-python`) |
-| Execução de Python | Pyodide (CPython 3.14 em WebAssembly), Web Worker |
-| Estado | Zustand (persistência), funções puras para as regras de progresso |
+| Interface | React 19 · React Router 7 · Tailwind CSS 4 |
+| Editor | CodeMirror 6 |
+| Execução de Python | Pyodide (CPython 3.14 em WebAssembly) · Web Worker |
+| Estado | Zustand · regras de progresso em funções puras |
 | Conteúdo | Markdown + YAML, convertidos para JSON no build por um plugin do Vite |
-| Testes | Vitest (inclusive com o Pyodide real em Node), Playwright |
-| Qualidade | ESLint, GitHub Actions |
-| Deploy | Vercel |
+| Testes | Vitest (com o Pyodide real em Node) · Playwright |
+| Qualidade e deploy | ESLint · GitHub Actions · Vercel |
 
-## Como rodar localmente
+<a id="como-rodar"></a>
 
-**Requisito:** Node.js 20 ou mais recente.
+## <img src="docs/readme/icone-rodar.svg" height="30" align="center"> Como rodar
+
+> [!TIP]
+> Requisito: **Node.js 20** ou mais recente.
 
 ```bash
 git clone https://github.com/DutraBrun0/passo-a-byte.git
@@ -111,17 +159,17 @@ npm run dev          # http://localhost:5173
 | `npm run test:e2e` | testes no navegador com Playwright (rode `npx playwright install chromium` uma vez) |
 | `npm run lint` | ESLint |
 | `npm run build` | build de produção em `dist/` |
-| `npm run check` | lint + testes + build (o mesmo que a CI roda) |
+| `npm run check` | lint + testes + build, o mesmo que a CI roda |
 | `npm run demo:gif` | grava o `docs/demo.gif` com o Playwright |
 
-## Como funciona por dentro
+## <img src="docs/readme/icone-arquitetura.svg" height="30" align="center"> Como funciona por dentro
 
 ### Arquitetura
 
 O projeto separa o que é **genérico** (trilha, progresso, robô, páginas) do que é **específico de uma linguagem**.
 O núcleo não sabe nada de Python: ele conversa com um *adaptador de linguagem* que segue um contrato
-([`src/nucleo/linguagens/contrato.js`](src/nucleo/linguagens/contrato.js)). Assim, adicionar JavaScript ou SQL no
-futuro significa escrever um novo adaptador, sem tocar nas páginas.
+([`contrato.js`](src/nucleo/linguagens/contrato.js)). Adicionar JavaScript ou SQL no futuro significa escrever um
+novo adaptador, sem tocar nas páginas.
 
 ```text
 src/
@@ -138,34 +186,66 @@ src/
 └── paginas/         início, trilha, lição, robô e progresso
 ```
 
-### Execução segura do código do aluno
+### <img src="docs/readme/icone-chave.svg" height="24" align="center"> Execução segura do código do aluno
 
-1. **Sempre num Web Worker**: o código nunca roda na thread principal, então a página não trava.
-2. **Limite de passos e de tempo** com `sys.settrace`, contando só as linhas do aluno.
-3. **Cão de guarda**: se o Worker não responder em 10 s (por exemplo, numa conta gigante feita em C),
-   ele é encerrado e recriado automaticamente.
-4. **Sem rede**: depois que o Pyodide carrega, `fetch`, `XMLHttpRequest`, `WebSocket` e afins são desativados no Worker.
-5. **Ambiente restrito**: só alguns módulos da biblioteca padrão podem ser importados, e `open`, `eval`, `exec`
-   e `compile` são removidos.
+| | Camada | Como funciona |
+|:-:|--------|---------------|
+| 1 | **Web Worker** | o código nunca roda na thread principal, então a página não trava |
+| 2 | **Limite de passos e tempo** | `sys.settrace` conta só as linhas do aluno |
+| 3 | **Cão de guarda** | se o Worker não responder em 10 s, ele é encerrado e recriado |
+| 4 | **Sem rede** | `fetch`, `XMLHttpRequest`, `WebSocket` e afins são desativados depois da carga |
+| 5 | **Ambiente restrito** | imports só de uma lista da biblioteca padrão; `open`, `eval`, `exec` e `compile` removidos |
 
 ### Como o robô é animado
 
-O Worker executa o programa inteiro de uma vez e devolve um **trace**: uma lista de passos, cada um com a ação,
-a linha do código e o estado completo do robô. A interface só percorre essa lista. Por isso pausar, avançar um passo
-ou reiniciar são simples mudanças de índice, e o editor sabe exatamente qual linha destacar.
+```text
+Thread principal                       Web Worker
+────────────────                       ──────────
+robo.executar(codigo, fase) ─────────▶ roda o programa inteiro de uma vez
+                                       cada andar() vira um passo do trace
+◀───────────────────────────────────── trace = [{ acao, linha, estado }, ...]
+reprodutor percorre o trace
+canvas desenha trace[i].estado
+editor destaca trace[i].linha
+```
 
-### Por que Pyodide e não Skulpt?
+Cada passo carrega o estado completo do robô, então pausar, avançar um passo ou reiniciar são só mudanças de índice.
 
-O Skulpt é bem mais leve (~1 MB contra ~12 MB), mas é uma reimplementação parcial do Python em JavaScript, com
-diferenças de comportamento e de mensagens de erro. Para quem está aprendendo, a fidelidade pesa mais: o Pyodide
-é o Python real e ainda oferece `sys.settrace`, que torna possível o limite de passos e o destaque de linha do robô.
-O tamanho do download foi compensado com carregamento sob demanda, barra de progresso, cache permanente
-(service worker) e execução em Worker.
+<details>
+<summary><b>Por que Pyodide e não Skulpt?</b></summary>
+<br>
 
-## Como adicionar uma lição
+| | Pyodide ✅ | Skulpt |
+|---|---|---|
+| O que é | CPython compilado para WebAssembly | reimplementação de Python em JavaScript |
+| Download | ~12 MB na primeira visita, depois cache | ~1 MB |
+| Fidelidade | Python 3.14 real, mesmas mensagens de erro | subconjunto, com diferenças de comportamento |
+| `sys.settrace` | sim (limite de passos e linha do robô) | não |
 
-A estrutura de pastas em `content/` **é o índice do curso**: o prefixo numérico define a ordem e o resto do nome
-vira o id que aparece na URL. Cada lição é um arquivo `.md` com o exercício num cabeçalho YAML:
+Para quem está aprendendo, a fidelidade pesa mais do que o tamanho. O download foi compensado com carregamento sob
+demanda, barra de progresso, cache permanente (service worker) e execução em Worker.
+
+</details>
+
+<a id="como-adicionar-uma-licao"></a>
+
+## <img src="docs/readme/icone-licao.svg" height="30" align="center"> Como adicionar uma lição
+
+A estrutura de pastas em `content/` **é o índice do curso**: o prefixo numérico define a ordem e o resto do nome vira
+o id que aparece na URL.
+
+```text
+content/python/
+├── 1-iniciante/
+│   ├── nivel.json              ← título, descrição e ícone do nível
+│   └── 01-print/
+│       ├── modulo.json         ← título e descrição do módulo
+│       └── 01-ola-mundo.md     ← uma lição
+└── robo/
+    └── 01-primeiros-passos.md  ← uma fase do robô
+```
+
+Cada lição é um `.md` com o exercício num cabeçalho YAML:
 
 ````markdown
 ---
@@ -189,30 +269,48 @@ exercicio:
 Texto da lição em Markdown, com exemplos.
 ````
 
-Tipos de teste disponíveis: `saida` (o que foi impresso), `variavel` (valor ou tipo de uma variável),
-`funcao` (retorno de uma função), `python` (um `assert` livre) e `estrutura` (análise do código sem executar,
-como exigir ou proibir laços).
+| Tipo de teste | O que verifica |
+|---------------|----------------|
+| `saida` | o que o programa imprimiu |
+| `variavel` | o valor ou o tipo de uma variável |
+| `funcao` | o retorno de uma função do aluno |
+| `python` | um `assert` livre |
+| `estrutura` | o código sem executar: construções exigidas ou proibidas |
 
-Ao rodar `npm test`, **toda lição é validada automaticamente**: a solução de referência precisa passar em todos os
-testes e o código inicial precisa falhar, para evitar exercícios triviais por engano.
+> [!IMPORTANT]
+> O `npm test` valida **toda lição automaticamente**: a solução de referência precisa passar em todos os testes e o
+> código inicial precisa falhar, para evitar exercício trivial por engano.
 
-## Testes e CI
+## <img src="docs/readme/icone-testes.svg" height="30" align="center"> Testes e CI
 
 - **Vitest:** executor Python no Pyodide real, tradução de erros, supervisor do Worker, simulador do robô,
-  regras de progresso e conquistas, montagem do conteúdo, sprites e validação de todas as lições e fases.
-- **Playwright:** carregamento do Pyodide no Chromium, loop infinito e recuperação do Worker, lição completa,
-  trilha e bloqueios, exportar/importar progresso e o robô com passo a passo.
+  progresso e conquistas, montagem do conteúdo, sprites e todas as lições e fases.
+- **Playwright:** Pyodide no Chromium, loop infinito e recuperação do Worker, lição completa, trilha e bloqueios,
+  exportar e importar progresso, robô com passo a passo.
 - **GitHub Actions** ([`ci.yml`](.github/workflows/ci.yml)): lint, testes e build a cada push e pull request,
   seguidos dos testes no navegador.
 
-## Design
+## <img src="docs/readme/icone-design.svg" height="30" align="center"> Design
 
-O visual segue o [DESIGN.md](DESIGN.md): fundo azul-claro, **uma única cor de destaque** (laranja `#ff5e24`),
-títulos na fonte Jersey 10 e texto em Manrope. Os sprites são **pixel art de verdade**, definidos como grades de
-caracteres ligadas aos tokens de cor e desenhados em canvas com `image-rendering: pixelated`. Um teste garante que
-todo sprite usa só cores da paleta.
+O visual segue o [DESIGN.md](DESIGN.md), e este README usa a mesma paleta:
 
-## Próximos passos
+<p>
+<img src="https://img.shields.io/badge/Signal_Orange-ff5e24?style=for-the-badge" alt="Signal Orange #ff5e24">
+<img src="https://img.shields.io/badge/Ember_Crust-6c3200?style=for-the-badge" alt="Ember Crust #6c3200">
+<img src="https://img.shields.io/badge/Graphite_Ink-232629?style=for-the-badge" alt="Graphite Ink #232629">
+<img src="https://img.shields.io/badge/Slate_Pencil-5c6066?style=for-the-badge" alt="Slate Pencil #5c6066">
+<img src="https://img.shields.io/badge/Cloud_Mist-e3f1fe?style=for-the-badge" alt="Cloud Mist #e3f1fe">
+<img src="https://img.shields.io/badge/Warm_Cream-f5e6dc?style=for-the-badge" alt="Warm Cream #f5e6dc">
+</p>
+
+- **Tipografia:** Jersey 10 nos títulos grandes, Manrope no resto.
+- **Uma só cor de destaque:** o laranja, com um único botão laranja preenchido por tela.
+- **Pixel art de verdade:** sprites definidos como grades de caracteres ligadas aos tokens de cor, desenhados em
+  canvas com `image-rendering: pixelated`. Um teste garante que todo sprite usa só cores da paleta.
+
+As imagens deste README (banner, botões, cards e ícones) foram geradas a partir dos mesmos sprites do site.
+
+## <img src="docs/readme/icone-proximos.svg" height="32" align="center"> Próximos passos
 
 - [ ] Escrever as lições dos níveis Básico, Intermediário e Avançado
 - [ ] Editor de fases do robô com compartilhamento por link
@@ -221,10 +319,8 @@ todo sprite usa só cores da paleta.
 - [ ] Efeitos sonoros e busca nas lições
 - [ ] Cabeçalhos de segurança (CSP) na Vercel
 
----
+<br>
 
-<div align="center">
-
-Feito por [DutraBrun0](https://github.com/DutraBrun0)
-
-</div>
+<a href="https://github.com/DutraBrun0">
+  <img src="docs/readme/rodape.svg" alt="Passo a Byte, feito com Python, pixels e paciência por DutraBrun0" width="100%">
+</a>
