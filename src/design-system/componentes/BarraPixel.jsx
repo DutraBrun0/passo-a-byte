@@ -1,6 +1,7 @@
 /*
  * Barra de progresso em blocos (estilo barra de vida de jogo 8-bit).
  * `valor` vai de 0 a 1; sem valor, os blocos piscam em sequência (indeterminado).
+ * Os blocos cheios acendem um depois do outro quando a barra aparece.
  */
 export function BarraPixel({ valor, blocos = 20, rotulo, className = '' }) {
   const preenchidos = valor == null ? 0 : Math.round(Math.min(1, Math.max(0, valor)) * blocos)
@@ -21,10 +22,10 @@ export function BarraPixel({ valor, blocos = 20, rotulo, className = '' }) {
             indeterminado
               ? 'animate-pisca bg-signal-orange'
               : i < preenchidos
-                ? 'bg-signal-orange'
+                ? 'animate-estoura bg-signal-orange'
                 : 'bg-cloud-mist'
           }`}
-          style={indeterminado ? { animationDelay: `${(i % blocos) * 80}ms` } : undefined}
+          style={indeterminado || i < preenchidos ? { animationDelay: `${i * (indeterminado ? 80 : 45)}ms` } : undefined}
         />
       ))}
     </div>

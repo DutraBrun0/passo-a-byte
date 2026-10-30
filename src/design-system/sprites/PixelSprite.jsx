@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { useTema } from '../../layout/tema.js'
 import { dimensoes } from './sprites.js'
 import { desenharSprite } from './desenhar.js'
 
@@ -10,13 +11,15 @@ import { desenharSprite } from './desenhar.js'
 export function PixelSprite({ nome, escala = 4, rotulo, className = '' }) {
   const ref = useRef(null)
   const { largura, altura } = dimensoes(nome)
+  // Os pixels 'x' usam a cor do texto, que muda com o tema: redesenha na troca.
+  const tema = useTema()
 
   useEffect(() => {
     const canvas = ref.current
     const ctx = canvas.getContext('2d')
     ctx.clearRect(0, 0, largura, altura)
     desenharSprite(ctx, nome, { corAtual: getComputedStyle(canvas).color })
-  }, [nome, largura, altura])
+  }, [nome, largura, altura, tema])
 
   return (
     <canvas

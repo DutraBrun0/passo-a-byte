@@ -5,18 +5,19 @@ import { PixelSprite } from '../sprites/PixelSprite.jsx'
  * Botões do sistema (DESIGN.md › Components):
  * - primario: preenchido em Signal Orange, texto branco, anel laranja "pressionado".
  *   Só um por tela; o foco ganha um contorno externo para não sumir no próprio anel.
+ *   No hover, um brilho atravessa o botão (.brilho, em index.css).
  * - secundario: contorno Cloud Mist, texto Graphite Ink.
  * - fantasma: só texto, sublinhado laranja no hover.
  * Todos com raio de 6px.
  */
 const BASE =
-  'inline-flex items-center justify-center gap-8 rounded-buttons font-medium ' +
+  'group/botao inline-flex items-center justify-center gap-8 rounded-buttons font-medium ' +
   'transition-[color,background-color,border-color,text-decoration-color,translate] duration-150 active:translate-y-[2px] ' +
   'disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50'
 
 const VARIANTES = {
   primario:
-    'bg-signal-orange text-paper-white font-bold shadow-subtle hover:bg-ember-crust ' +
+    'brilho bg-signal-orange text-pure-white font-bold shadow-subtle hover:bg-signal-deep ' +
     'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal-orange',
   secundario: 'border border-cloud-mist bg-paper-white text-graphite-ink hover:border-cloud-shade hover:bg-cloud-mist',
   fantasma:
@@ -39,7 +40,13 @@ export function Botao({ variante, tamanho, className, para, icone, children, ...
   const conteudo = (
     <>
       {children}
-      {icone && <PixelSprite nome={icone} escala={2} />}
+      {icone && (
+        <PixelSprite
+          nome={icone}
+          escala={2}
+          className="transition-transform duration-200 group-hover/botao:translate-x-[3px]"
+        />
+      )}
     </>
   )
   if (para) {

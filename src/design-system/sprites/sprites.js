@@ -108,6 +108,37 @@ export const SPRITES = {
     'xxx.xxx',
     'xxxxxxx',
   ],
+  // Botão de tema, 9x9.
+  sol: [
+    '....x....',
+    '.x.....x.',
+    '...xxx...',
+    '..xxxxx..',
+    'x.xxxxx.x',
+    '..xxxxx..',
+    '...xxx...',
+    '.x.....x.',
+    '....x....',
+  ],
+  lua: [
+    '..xx.....',
+    '.xx......',
+    '.xx......',
+    'xxx......',
+    'xxx......',
+    'xxxx.....',
+    '.xxxxx...',
+    '.xxxxxxx.',
+    '...xxx...',
+  ],
+  // Estrela que pisca no céu do tema escuro, 5x5.
+  faisca: [
+    '..c..',
+    '.ccc.',
+    'ccwcc',
+    '.ccc.',
+    '..c..',
+  ],
 
   // Ícones dos níveis, 12x12.
   nivelSemente: [

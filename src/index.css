@@ -8,6 +8,8 @@
   }
 
   body {
+    /* Repete a cor do html: no tema escuro as variáveis são redefinidas no body. */
+    color: var(--color-graphite-ink);
     min-height: 100dvh;
     font-family: var(--font-manrope-variable);
     font-size: var(--text-body);
@@ -182,6 +184,99 @@
   .levita:hover .balanca-no-hover {
     animation: var(--animate-balanca);
   }
+
+  /*
+   * Card que inclina em 3D seguindo o mouse (useInclinarCartoes define as
+   * variáveis). O ::after é um reflexo de luz que acompanha o ponteiro.
+   */
+  [data-inclinar] {
+    position: relative;
+    transform: perspective(900px) rotateX(var(--inclina-x, 0deg)) rotateY(var(--inclina-y, 0deg));
+    transition:
+      transform 450ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      translate 180ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      box-shadow 180ms ease,
+      border-color 150ms ease;
+  }
+  [data-inclinar][data-inclinado] {
+    transition-duration: 90ms, 180ms, 180ms, 150ms;
+  }
+  [data-inclinar]::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--luz-x, 50%) var(--luz-y, 50%), rgb(255 255 255 / 0.45), transparent 60%);
+    opacity: 0;
+    transition: opacity 250ms ease;
+    pointer-events: none;
+  }
+  [data-inclinar][data-inclinado]::after {
+    opacity: 1;
+  }
+  :root[data-tema='escuro'] [data-inclinar]::after {
+    background: radial-gradient(circle at var(--luz-x, 50%) var(--luz-y, 50%), rgb(255 94 36 / 0.14), transparent 60%);
+  }
+
+  /* Sublinhado laranja que cresce da esquerda (links da navegação) */
+  .sublinha {
+    position: relative;
+  }
+  .sublinha::after {
+    content: '';
+    position: absolute;
+    left: var(--spacing-8);
+    right: var(--spacing-8);
+    bottom: 2px;
+    height: 2px;
+    background-color: var(--color-signal-orange);
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .sublinha:hover::after {
+    scale: 1 1;
+  }
+  .sublinha[aria-current='page']::after {
+    display: none;
+  }
+
+  /* Faixa de luz que atravessa o botão primário no hover */
+  .brilho {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .brilho::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(110deg, transparent 30%, rgb(255 255 255 / 0.45) 50%, transparent 70%);
+    translate: -120% 0;
+    pointer-events: none;
+  }
+  .brilho:hover::after {
+    translate: 120% 0;
+    transition: translate 650ms ease;
+  }
+
+  /* Céu: nuvens no tema claro, estrelas piscando no escuro */
+  .ceu-estrelas {
+    display: none;
+  }
+  :root[data-tema='escuro'] .ceu-estrelas {
+    display: block;
+  }
+  :root[data-tema='escuro'] .ceu-nuvens {
+    opacity: 0.12;
+  }
+}
+
+/* Troca de tema: a página nova se revela num círculo (tema.js anima o clip-path). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
 
 @layer utilities {
@@ -204,5 +299,9 @@
   [data-revelar] {
     opacity: 1;
     translate: none;
+  }
+
+  [data-inclinar] {
+    transform: none;
   }
 }

@@ -6,6 +6,7 @@ import { Botao } from '../../design-system/componentes/Botao.jsx'
 import { Cartao } from '../../design-system/componentes/Cartao.jsx'
 import { Pilula } from '../../design-system/componentes/Pilula.jsx'
 import { Titulo } from '../../design-system/componentes/Titulo.jsx'
+import { soltarConfeteDe } from '../../design-system/efeitos/confete.js'
 import { EditorCodigo } from '../../editor/EditorCodigo.jsx'
 import { Markdown } from '../../editor/Markdown.jsx'
 import { obterCurso } from '../../nucleo/conteudo/cursos.js'
@@ -66,6 +67,7 @@ function Fase({ adaptador, curso, fase }) {
   const [mostrarDica, setMostrarDica] = useState(false)
   const [conquistasNovas, setConquistasNovas] = useState([])
   const passoPendente = useRef(false)
+  const cartaoLabirinto = useRef(null)
 
   const reprodutor = useReprodutor(resultado?.trace ?? null, velocidade)
   const atual = quadro(resultado?.trace ?? [], reprodutor.indice, inicial)
@@ -78,6 +80,7 @@ function Fase({ adaptador, curso, fase }) {
     if (!venceu) return
     const novas = useProgresso.getState().concluirFase(idProgresso, { xp: fase.xp, linhas })
     setConquistasNovas(novas)
+    soltarConfeteDe(cartaoLabirinto.current, { quantidade: 120 })
     // eslint-disable-next-line react-hooks/exhaustive-deps -- registra uma vez por vitória
   }, [venceu])
 
@@ -148,7 +151,7 @@ function Fase({ adaptador, curso, fase }) {
         </div>
         <Markdown texto={fase.corpo} parser={parser} linguagem={linguagem} />
 
-        <Cartao className="flex flex-col gap-16">
+        <Cartao ref={cartaoLabirinto} className="flex flex-col gap-16">
           <Labirinto mapa={mapa} estado={atual.estado} descricao={`Labirinto da fase ${fase.titulo}`} />
           <div className="flex flex-wrap items-center justify-between gap-8 text-body-sm">
             <p aria-live="polite" className="text-graphite-ink">
@@ -174,7 +177,7 @@ function Fase({ adaptador, curso, fase }) {
         </Cartao>
       </article>
 
-      <div className="flex min-w-0 flex-col gap-16 self-start lg:sticky lg:top-16">
+      <div className="flex min-w-0 flex-col gap-16 self-start lg:sticky lg:top-96">
         <Cartao semPreenchimento className="overflow-hidden focus-within:shadow-subtle">
           <div className="flex items-center justify-between border-b border-cloud-mist bg-app-window px-16 py-8">
             <span className="font-code text-caption text-slate-pencil">
@@ -249,7 +252,10 @@ function Fase({ adaptador, curso, fase }) {
         </Cartao>
 
         {venceu && (
-          <Cartao className="flex flex-col gap-16 sm:flex-row sm:items-center sm:justify-between" role="status">
+          <Cartao
+            className="flex animate-estoura flex-col gap-16 sm:flex-row sm:items-center sm:justify-between"
+            role="status"
+          >
             <div>
               <p className="text-body font-bold text-midnight-ink">O Bit chegou à saída!</p>
               <p className="text-body-sm text-slate-pencil">
@@ -281,7 +287,7 @@ function Fase({ adaptador, curso, fase }) {
               </section>
               {terminouComErro && <CartaoErro erro={resultado.erro} />}
               {reprodutor.terminou && !resultado.erro && !resultado.sucesso && (
-                <div className="rounded-cards border border-blush-shadow p-16">
+                <div className="animate-treme rounded-cards border border-blush-shadow p-16">
                   <p className="text-body font-bold text-midnight-ink">Ainda não foi desta vez</p>
                   <p className="mt-8 text-body-sm text-graphite-ink">
                     {resultado.motivo.charAt(0).toUpperCase() + resultado.motivo.slice(1)}.

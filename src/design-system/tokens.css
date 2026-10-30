@@ -25,6 +25,11 @@
   --color-warm-cream: #f5e6dc;
   --color-cloud-shade: #c4dcf3;
 
+  /* Papéis que precisam continuar iguais (ou mudar de outro jeito) no tema escuro */
+  --color-pure-white: #ffffff; /* texto sobre o laranja e sobre o rodapé */
+  --color-signal-deep: #6c3200; /* hover do botão primário */
+  --color-ember-ground: #6c3200; /* fundo do rodapé */
+
   /* Tipografia — famílias */
   --font-*: initial;
   --font-jersey-10: 'Jersey 10', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -127,6 +132,73 @@
   --animate-flutua: flutua 1.2s steps(2, jump-none) infinite alternate;
   --animate-entra: entra 420ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
   --animate-balanca: balanca 480ms steps(4, jump-none);
+  --animate-pulo: pulo 560ms cubic-bezier(0.3, 1.6, 0.5, 1);
+  --animate-giro: giro 720ms cubic-bezier(0.5, 0, 0.3, 1);
+  --animate-treme: treme 420ms steps(6, jump-none);
+  --animate-surge: surge 360ms cubic-bezier(0.2, 0.9, 0.3, 1.3) backwards;
+  --animate-estoura: estoura 520ms cubic-bezier(0.2, 0.9, 0.3, 1.4) backwards;
+  --animate-sobe-some: sobe-some 1400ms cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+  --animate-pulso: pulso 1.8s ease-out infinite;
+  --animate-cursor: pisca 1s steps(1, jump-none) infinite;
+  --animate-brilha: brilha 2.4s steps(3, jump-none) infinite;
+  --animate-particula: particula 9s linear infinite;
+  --animate-enche: enche 700ms cubic-bezier(0.2, 0.8, 0.2, 1) backwards;
+  /* Uma casa por passo até --distancia (definida no elemento), depois descansa na bandeira */
+  --animate-anda: anda 4.2s steps(6, jump-none) infinite;
+
+  @keyframes anda {
+    0% { translate: 0 0; }
+    75%, 100% { translate: var(--distancia, 0) 0; }
+  }
+  @keyframes enche {
+    from { scale: 0 1; }
+    to { scale: 1 1; }
+  }
+  @keyframes pulo {
+    0%, 100% { translate: 0 0; }
+    40% { translate: 0 -24px; }
+    70% { translate: 0 2px; }
+  }
+  @keyframes giro {
+    from { rotate: 0deg; }
+    to { rotate: 360deg; }
+  }
+  @keyframes treme {
+    0%, 100% { translate: 0 0; }
+    20% { translate: -6px 0; }
+    40% { translate: 6px 0; }
+    60% { translate: -4px 0; }
+    80% { translate: 4px 0; }
+  }
+  @keyframes surge {
+    from { opacity: 0; scale: 0.92; translate: 0 8px; }
+    to { opacity: 1; scale: 1; translate: 0 0; }
+  }
+  @keyframes estoura {
+    0% { opacity: 0; scale: 0.4; }
+    60% { opacity: 1; scale: 1.08; }
+    100% { opacity: 1; scale: 1; }
+  }
+  @keyframes sobe-some {
+    0% { opacity: 0; translate: -50% 0; scale: 0.6; }
+    15% { opacity: 1; translate: -50% -12px; scale: 1.15; }
+    30% { scale: 1; }
+    100% { opacity: 0; translate: -50% -96px; }
+  }
+  @keyframes pulso {
+    0% { box-shadow: 0 0 0 0 rgb(255 94 36 / 0.55); }
+    70%, 100% { box-shadow: 0 0 0 12px rgb(255 94 36 / 0); }
+  }
+  @keyframes brilha {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  @keyframes particula {
+    from { translate: 0 0; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    to { translate: 0 -320px; opacity: 0; }
+  }
 
   @keyframes entra {
     from { opacity: 0; translate: 0 16px; }
@@ -163,4 +235,28 @@
   --surface-card-paper: var(--color-paper-white);
   --surface-app-window: var(--color-app-window);
   --surface-ember-ground: var(--color-ember-crust);
+}
+
+/*
+ * Tema escuro (data-tema="escuro" no <html>, definido antes do React carregar
+ * para não piscar). As cores são redefinidas no <body>, não no :root: os
+ * sprites em pixel art leem a paleta do :root e mantêm as cores originais.
+ */
+:root[data-tema='escuro'] {
+  color-scheme: dark;
+  --surface-sky-canvas: #0e1218;
+}
+:root[data-tema='escuro'] body {
+  --color-paper-white: #171c23;
+  --color-app-window: #1e242d;
+  --color-cloud-mist: #2a313b;
+  --color-cloud-shade: #3b4552;
+  --color-graphite-ink: #e3e8ee;
+  --color-midnight-ink: #f7f9fb;
+  --color-slate-pencil: #a4aebb;
+  --color-ash-mist: #6f7a87;
+  --color-blush-shadow: #4b2b2e;
+  --color-ember-crust: #ff9a6c;
+  --color-signal-deep: #d9481a;
+  --color-ember-ground: #1f0f06;
 }

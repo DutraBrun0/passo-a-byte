@@ -7,6 +7,20 @@
     <meta name="theme-color" content="#e3f1fe" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>Passo a Byte</title>
+    <script>
+      // Tema antes do primeiro desenho, para a página não piscar (ver src/layout/tema.js).
+      ;(function () {
+        var tema
+        try {
+          tema = localStorage.getItem('passo-a-byte:tema')
+        } catch (e) {}
+        if (tema !== 'claro' && tema !== 'escuro') {
+          tema = matchMedia('(prefers-color-scheme: dark)').matches ? 'escuro' : 'claro'
+        }
+        document.documentElement.dataset.tema = tema
+        if (tema === 'escuro') document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0e1218')
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -25,12 +25,18 @@ function ValorTeste({ rotulo, valor }) {
   )
 }
 
-function ItemTeste({ teste }) {
+// Os testes entram um depois do outro, e a pílula de cada um "estoura" logo em seguida.
+const ATRASO_POR_TESTE_MS = 90
+
+function ItemTeste({ teste, indice }) {
+  const atraso = indice * ATRASO_POR_TESTE_MS
   return (
-    <li className="border-t border-cloud-mist py-8 first:border-t-0">
+    <li className="animate-surge border-t border-cloud-mist py-8 first:border-t-0" style={{ animationDelay: `${atraso}ms` }}>
       <div className="flex items-start justify-between gap-8">
         <span className="text-body-sm text-graphite-ink">{teste.nome}</span>
-        <Pilula tom={teste.passou ? 'sucesso' : 'falha'}>{teste.passou ? 'Passou' : 'Falhou'}</Pilula>
+        <span className="animate-estoura" style={{ animationDelay: `${atraso + 160}ms` }}>
+          <Pilula tom={teste.passou ? 'sucesso' : 'falha'}>{teste.passou ? 'Passou' : 'Falhou'}</Pilula>
+        </span>
       </div>
       {!teste.passou && (
         <div className="mt-8 flex flex-col gap-8">
@@ -74,12 +80,21 @@ export function PainelResultado({ resultado, executando }) {
 
       {resultado.testes.length > 0 && (
         <section aria-label="Testes">
-          <h3 className="text-caption font-semibold uppercase text-slate-pencil">
-            Testes: {aprovados} de {resultado.testes.length}
-          </h3>
-          <ul className="mt-8">
+          <div className="flex items-center gap-16">
+            <h3 className="shrink-0 text-caption font-semibold uppercase text-slate-pencil">
+              Testes: {aprovados} de {resultado.testes.length}
+            </h3>
+            <span className="h-8 flex-1 overflow-hidden rounded-md bg-cloud-mist" aria-hidden="true">
+              <span
+                className="block h-full origin-left animate-enche bg-signal-orange"
+                style={{ width: `${(aprovados / resultado.testes.length) * 100}%` }}
+              />
+            </span>
+          </div>
+          {/* data-sem-revelar: estes itens têm a própria animação de entrada */}
+          <ul className="mt-8" data-sem-revelar>
             {resultado.testes.map((teste, i) => (
-              <ItemTeste key={i} teste={teste} />
+              <ItemTeste key={i} teste={teste} indice={i} />
             ))}
           </ul>
         </section>

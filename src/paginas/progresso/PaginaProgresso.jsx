@@ -3,6 +3,7 @@ import { Conquista } from '../../componentes/Conquista.jsx'
 import { BarraPixel } from '../../design-system/componentes/BarraPixel.jsx'
 import { Botao } from '../../design-system/componentes/Botao.jsx'
 import { Cartao } from '../../design-system/componentes/Cartao.jsx'
+import { ContadorAnimado } from '../../design-system/componentes/ContadorAnimado.jsx'
 import { Titulo } from '../../design-system/componentes/Titulo.jsx'
 import { Nuvens } from '../../design-system/sprites/Nuvens.jsx'
 import { cursos } from '../../nucleo/conteudo/cursos.js'
@@ -12,11 +13,14 @@ import { CONQUISTAS } from '../../nucleo/progresso/conquistas.js'
 import { contarConcluidas, diaLocal, sequenciaVigente } from '../../nucleo/progresso/regras.js'
 import { useProgresso } from '../../nucleo/progresso/useProgresso.js'
 
-function Numero({ rotulo, valor, detalhe }) {
+function Numero({ rotulo, valor, sufixo = '', detalhe }) {
   return (
-    <Cartao>
+    <Cartao data-inclinar className="levita hover:border-signal-orange hover:shadow-xl">
       <p className="text-caption font-semibold uppercase text-slate-pencil">{rotulo}</p>
-      <p className="font-jersey-10 text-heading text-graphite-ink">{valor}</p>
+      <p className="font-jersey-10 text-heading text-graphite-ink">
+        <ContadorAnimado valor={valor} />
+        {sufixo}
+      </p>
       {detalhe && <p className="text-caption text-slate-pencil">{detalhe}</p>}
     </Cartao>
   )
@@ -118,9 +122,14 @@ export function PaginaProgresso() {
 
         <section aria-label="Resumo" className="grid gap-16 sm:grid-cols-2 lg:grid-cols-4">
           <Numero rotulo="XP" valor={dados.xp} />
-          <Numero rotulo="Sequência" valor={`${sequenciaVigente(dados.sequencia, hoje)} dias`} detalhe={`Recorde: ${dados.sequencia.melhor} dias`} />
+          <Numero
+            rotulo="Sequência"
+            valor={sequenciaVigente(dados.sequencia, hoje)}
+            sufixo=" dias"
+            detalhe={`Recorde: ${dados.sequencia.melhor} dias`}
+          />
           <Numero rotulo="Lições" valor={totalConcluidas} detalhe="concluídas" />
-          <Numero rotulo="Conquistas" valor={`${desbloqueadas}/${CONQUISTAS.length}`} />
+          <Numero rotulo="Conquistas" valor={desbloqueadas} sufixo={`/${CONQUISTAS.length}`} />
         </section>
 
         {[...cursos.values()].map((curso) => (

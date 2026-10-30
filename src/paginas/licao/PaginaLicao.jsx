@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router'
 import { ConquistasNovas } from '../../componentes/Conquista.jsx'
 import { PainelCarregamento } from '../../componentes/PainelCarregamento.jsx'
@@ -6,6 +6,7 @@ import { Botao } from '../../design-system/componentes/Botao.jsx'
 import { Cartao } from '../../design-system/componentes/Cartao.jsx'
 import { Pilula } from '../../design-system/componentes/Pilula.jsx'
 import { Titulo } from '../../design-system/componentes/Titulo.jsx'
+import { soltarConfeteDe } from '../../design-system/efeitos/confete.js'
 import { EditorCodigo } from '../../editor/EditorCodigo.jsx'
 import { Markdown } from '../../editor/Markdown.jsx'
 import { obterCurso } from '../../nucleo/conteudo/cursos.js'
@@ -80,6 +81,8 @@ function Licao({ adaptador, curso, licao }) {
   const [resultado, setResultado] = useState(null)
   const [executando, setExecutando] = useState(false)
   const [conquistasNovas, setConquistasNovas] = useState([])
+  const [tremendo, setTremendo] = useState(false)
+  const botaoExecutar = useRef(null)
 
   // Salva o rascunho pouco depois de o aluno parar de digitar.
   const { salvarRascunho } = progresso
@@ -96,6 +99,9 @@ function Licao({ adaptador, curso, licao }) {
       const novo = await adaptador.executar(codigo, { entrada: exercicio.entrada ?? [], testes: exercicio.testes })
       setResultado(novo)
       setConquistasNovas(progresso.registrarTentativa({ passou: novo.passou, xp: licao.xp }))
+      // Comemoração ao passar; o editor balança "não" ao falhar.
+      if (novo.passou) soltarConfeteDe(botaoExecutar.current, { quantidade: concluida ? 40 : 90 })
+      else setTremendo(true)
     } finally {
       setExecutando(false)
     }
@@ -148,8 +154,12 @@ function Licao({ adaptador, curso, licao }) {
         </Cartao>
       </article>
 
-      <div className="flex min-w-0 flex-col gap-16 self-start lg:sticky lg:top-16">
-        <Cartao semPreenchimento className="overflow-hidden focus-within:shadow-subtle">
+      <div className="flex min-w-0 flex-col gap-16 self-start lg:sticky lg:top-96">
+        <Cartao
+          semPreenchimento
+          className={`overflow-hidden focus-within:shadow-subtle ${tremendo ? 'animate-treme' : ''}`}
+          onAnimationEnd={(evento) => evento.target === evento.currentTarget && setTremendo(false)}
+        >
           <div className="flex items-center justify-between border-b border-cloud-mist bg-app-window px-16 py-8">
             <span className="font-code text-caption text-slate-pencil">
               {licao.id}
@@ -169,6 +179,7 @@ function Licao({ adaptador, curso, licao }) {
           />
           <div className="flex flex-wrap items-center gap-8 border-t border-cloud-mist px-16 py-16">
             <Botao
+              ref={botaoExecutar}
               variante={concluida ? 'secundario' : 'primario'}
               onClick={executar}
               disabled={executando}
@@ -184,7 +195,19 @@ function Licao({ adaptador, curso, licao }) {
         </Cartao>
 
         {concluida && (
-          <Cartao className="flex flex-col gap-16 sm:flex-row sm:items-center sm:justify-between" role="status">
+          <Cartao
+            className="relative flex animate-estoura flex-col gap-16 sm:flex-row sm:items-center sm:justify-between"
+            role="status"
+          >
+            {resultado?.passou && (
+              <span
+                key={progresso.tentativas}
+                aria-hidden="true"
+                className="pointer-events-none absolute left-1/2 top-0 animate-sobe-some font-jersey-10 text-heading-sm text-signal-orange"
+              >
+                +{progresso.xpGanho ?? licao.xp} XP
+              </span>
+            )}
             <div>
               <p className="text-body font-bold text-midnight-ink">Exercício concluído!</p>
               <p className="text-body-sm text-slate-pencil">Você ganhou {progresso.xpGanho ?? licao.xp} XP.</p>

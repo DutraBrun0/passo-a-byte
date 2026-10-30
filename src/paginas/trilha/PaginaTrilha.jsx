@@ -24,7 +24,9 @@ function ItemLicao({ linguagem, licao, status, ultima }) {
   const conteudo = (
     <>
       <span className="min-w-0 flex-1">
-        <span className="block text-body font-semibold text-graphite-ink">{licao.titulo}</span>
+        <span className="block text-body font-semibold text-graphite-ink transition-transform duration-200 group-hover:translate-x-4">
+          {licao.titulo}
+        </span>
         <span className="text-caption text-slate-pencil">+{licao.xp} XP</span>
       </span>
       <Pilula tom={tom} icone={null}>
@@ -36,29 +38,30 @@ function ItemLicao({ linguagem, licao, status, ultima }) {
   return (
     <li className="relative flex gap-16">
       {/* Trilha: marcador quadrado de pixel e a linha até a próxima lição */}
+      {/* A próxima lição pulsa; a linha fica laranja entre as lições já concluídas. */}
       <div className="flex w-32 shrink-0 flex-col items-center" aria-hidden="true">
         <span
           className={`mt-16 flex h-32 w-32 items-center justify-center rounded-md border-2 ${
             status === 'concluida'
-              ? 'border-ember-crust bg-signal-orange text-paper-white'
+              ? 'border-ember-crust bg-signal-orange text-pure-white'
               : bloqueada
                 ? 'border-ash-mist bg-cloud-mist text-slate-pencil'
-                : 'border-graphite-ink bg-paper-white text-graphite-ink'
+                : 'animate-pulso border-signal-orange bg-paper-white text-signal-orange'
           }`}
         >
           <PixelSprite nome={marcador} escala={2} />
         </span>
-        {!ultima && <span className="w-4 flex-1 bg-cloud-shade" />}
+        {!ultima && <span className={`w-4 flex-1 ${status === 'concluida' ? 'bg-signal-orange' : 'bg-cloud-shade'}`} />}
       </div>
       <div className="min-w-0 flex-1 pb-16">
         {bloqueada ? (
-          <div className={`${classes} border-cloud-mist opacity-70`} aria-disabled="true">
+          <div className={`${classes} border-cloud-mist [&>*]:opacity-70`} aria-disabled="true">
             {conteudo}
           </div>
         ) : (
           <Link
             to={`/${linguagem}/licao/${licao.id}`}
-            className={`levita ${classes} border-cloud-mist hover:border-signal-orange hover:shadow-xl`}
+            className={`levita group ${classes} border-cloud-mist hover:border-signal-orange hover:shadow-xl`}
           >
             {conteudo}
           </Link>

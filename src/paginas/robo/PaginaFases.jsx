@@ -38,11 +38,11 @@ function CartaoFase({ linguagem, fase, numero, status }) {
   )
   const classes = 'flex h-full flex-col gap-16 rounded-cards border border-cloud-mist bg-paper-white p-16 shadow-md'
   return bloqueada ? (
-    <div className={`${classes} opacity-60`} aria-disabled="true">
+    <div className={`${classes} [&>*]:opacity-60`} aria-disabled="true">
       {conteudo}
     </div>
   ) : (
-    <Link to={`/${linguagem}/robo/${fase.id}`} className={`levita ${classes} hover:border-signal-orange hover:shadow-xl`}>
+    <Link to={`/${linguagem}/robo/${fase.id}`} data-inclinar className={`levita ${classes} hover:border-signal-orange hover:shadow-xl`}>
       {conteudo}
     </Link>
   )
