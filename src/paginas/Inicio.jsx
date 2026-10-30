@@ -1,12 +1,12 @@
+import { useState } from 'react'
 import { Link } from 'react-router'
 import { Botao } from '../design-system/componentes/Botao.jsx'
 import { Cartao } from '../design-system/componentes/Cartao.jsx'
-import { ContadorAnimado } from '../design-system/componentes/ContadorAnimado.jsx'
 import { Pilula } from '../design-system/componentes/Pilula.jsx'
 import { Titulo } from '../design-system/componentes/Titulo.jsx'
 import { Nuvens } from '../design-system/sprites/Nuvens.jsx'
 import { PixelSprite } from '../design-system/sprites/PixelSprite.jsx'
-import { LINGUAGEM_PADRAO as LINGUAGEM, LINGUAGENS_PLANEJADAS } from '../linguagens/catalogo.js'
+import { LINGUAGEM_PADRAO as LINGUAGEM, LINGUAGENS, LINGUAGENS_PLANEJADAS } from '../linguagens/catalogo.js'
 import { obterCurso } from '../nucleo/conteudo/cursos.js'
 import { contarConcluidas } from '../nucleo/progresso/regras.js'
 import { useProgresso } from '../nucleo/progresso/useProgresso.js'
@@ -26,12 +26,12 @@ const PASSOS = [
   { sprite: 'trofeu', titulo: 'Veja passar', texto: 'Cada teste mostra o esperado e o que seu código fez. Acertou? XP!' },
 ]
 
-function CartaoNivel({ nivel, indice, progresso }) {
+function CartaoNivel({ linguagem, nivel, indice, progresso }) {
   const licoes = nivel.modulos.flatMap((m) => m.licoes)
-  const feitas = contarConcluidas(progresso, LINGUAGEM, licoes)
+  const feitas = contarConcluidas(progresso, linguagem, licoes)
   return (
     <Link
-      to={`/${LINGUAGEM}/trilha?nivel=${nivel.id}`}
+      to={`/${linguagem}/trilha?nivel=${nivel.id}`}
       data-inclinar
       className="levita group flex h-full flex-col gap-16 rounded-cards border border-card-edge bg-paper-white p-16 shadow-md hover:border-signal-orange hover:shadow-xl"
     >
@@ -55,7 +55,7 @@ function CartaoNivel({ nivel, indice, progresso }) {
         <p className="mt-8 text-body-sm text-slate-pencil">{nivel.descricao}</p>
       </div>
       <div className="mt-auto flex items-center justify-between gap-16">
-        <span className="text-body-sm font-medium text-graphite-ink underline-offset-4 decoration-signal-orange decoration-2 group-hover:underline">
+        <span className="link-suave-grupo text-body-sm font-medium text-graphite-ink">
           Ver trilha
         </span>
         {licoes.length > 0 && (
@@ -92,6 +92,8 @@ function CorredorDoBit() {
 export function Inicio() {
   const progresso = useProgresso((s) => s.dados)
   const curso = obterCurso(LINGUAGEM)
+  const [linguagemNiveis, setLinguagemNiveis] = useState(LINGUAGEM)
+  const cursoNiveis = obterCurso(linguagemNiveis)
 
   return (
     <>
@@ -111,7 +113,7 @@ export function Inicio() {
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <p className="inline-flex animate-entra items-center gap-8 rounded-md border border-card-edge bg-paper-white px-8 py-4 text-body-sm font-medium text-slate-pencil shadow-md">
               <span className="h-8 w-8 animate-pisca bg-signal-orange" aria-hidden="true" />
-              Python de verdade, direto no navegador
+              Python e JavaScript de verdade, direto no navegador
             </p>
             <h1 className="mt-24 font-jersey-10 font-normal">
               <span className="block animate-entra text-heading-lg text-graphite-ink md:text-display" style={{ animationDelay: '80ms' }}>
@@ -122,8 +124,8 @@ export function Inicio() {
               </span>
             </h1>
             <p className="mt-24 max-w-prose animate-entra text-body text-slate-pencil" style={{ animationDelay: '320ms' }}>
-              Lições curtas, exercícios corrigidos na hora e um robô que obedece cada linha do seu código. Tudo roda no
-              navegador, sem instalar nada e sem criar conta.
+              Lições curtas de Python e JavaScript, exercícios corrigidos na hora e um robô que obedece cada linha do
+              seu código. Tudo roda no navegador, sem instalar nada e sem criar conta.
             </p>
             <div className="mt-32 flex flex-wrap items-center justify-center gap-16 animate-entra lg:justify-start" style={{ animationDelay: '440ms' }}>
               <Botao variante="primario" tamanho="lg" para={`/${LINGUAGEM}/trilha`} icone="seta">
@@ -142,22 +144,6 @@ export function Inicio() {
             <TerminalDigitando />
           </div>
         </div>
-      </section>
-
-      <section aria-label="Em números" className="mx-auto max-w-page px-16 pb-64 md:px-32">
-        <ul className="grid grid-cols-2 gap-16 md:grid-cols-4">
-          {[
-            [curso.sequencia.length, 'lições'],
-            [curso.niveis.length, 'níveis'],
-            [curso.fases.length, 'fases do robô'],
-            [0, 'instalações'],
-          ].map(([valor, rotulo]) => (
-            <li key={rotulo} className="rounded-cards border border-card-edge bg-paper-white px-16 py-16 text-center shadow-md">
-              <ContadorAnimado valor={valor} className="font-jersey-10 text-heading text-signal-orange" />
-              <p className="text-body-sm font-medium text-slate-pencil">{rotulo}</p>
-            </li>
-          ))}
-        </ul>
       </section>
 
       <section aria-labelledby="titulo-como" className="mx-auto max-w-page px-16 pb-64 md:px-32">
@@ -190,13 +176,31 @@ export function Inicio() {
         <Titulo id="titulo-niveis" tamanho="heading" data-revelar>
           Escolha seu nível
         </Titulo>
-        <p className="mt-16 max-w-prose text-slate-pencil">
-          Já sabe o básico? Pode começar mais adiante. Dentro de cada nível as lições abrem em sequência.
-        </p>
+        <div className="mt-16 flex flex-wrap items-end justify-between gap-16">
+          <p className="max-w-prose text-slate-pencil">
+            Já sabe o básico? Pode começar mais adiante. Dentro de cada nível as lições abrem em sequência.
+          </p>
+          <div role="tablist" aria-label="Linguagem" className="flex gap-4 rounded-md border border-card-edge bg-paper-white p-4 shadow-md">
+            {LINGUAGENS.map(({ id, nome }) => (
+              <button
+                key={id}
+                type="button"
+                role="tab"
+                aria-selected={id === linguagemNiveis}
+                onClick={() => setLinguagemNiveis(id)}
+                className={`rounded-md px-16 py-4 text-body-sm font-semibold transition-colors ${
+                  id === linguagemNiveis ? 'bg-signal-orange text-pure-white' : 'text-slate-pencil hover:bg-cloud-mist hover:text-graphite-ink'
+                }`}
+              >
+                {nome}
+              </button>
+            ))}
+          </div>
+        </div>
         <ul className="mt-32 grid gap-16 md:grid-cols-2">
-          {curso.niveis.map((nivel, i) => (
-            <li key={nivel.id}>
-              <CartaoNivel nivel={nivel} indice={i} progresso={progresso} />
+          {cursoNiveis.niveis.map((nivel, i) => (
+            <li key={`${linguagemNiveis}/${nivel.id}`}>
+              <CartaoNivel linguagem={linguagemNiveis} nivel={nivel} indice={i} progresso={progresso} />
             </li>
           ))}
         </ul>

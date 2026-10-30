@@ -6,6 +6,8 @@
  * Este módulo é carregado sob demanda pelas rotas (ver rotas.jsx).
  */
 import { registrarLinguagem } from '../nucleo/linguagens/registro.js'
+import { javascript } from './javascript/index.js'
 import { python } from './python/index.js'
 
 registrarLinguagem(python)
+registrarLinguagem(javascript)

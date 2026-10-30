@@ -8,6 +8,9 @@ O Python do site não é uma imitação: é o **CPython 3.14 compilado para WebA
 Web Worker. As mensagens de erro e o comportamento são exatamente os do Python que a pessoa vai instalar depois.
 A diferença é que aqui os erros chegam **traduzidos e explicados em português**, com a linha marcada no editor.
 
+Também dá para aprender **JavaScript**, com o motor do próprio navegador num Web Worker: o código do aluno é
+instrumentado antes de rodar, para apontar a linha do erro e interromper laços infinitos com uma mensagem amigável.
+
 <p align="center">
   <img src="docs/destaques.svg" alt="Lições curtas, Desafios do Robô e Progresso" width="100%">
 </p>
@@ -86,6 +89,8 @@ repetir comando: é preciso usar laços.
 
 ## <img src="docs/icone-conteudo.svg" height="30" align="center"> Conteúdo
 
+**Python**
+
 | Nível | Módulos | Status |
 |-------|---------|:------:|
 | **1 · Iniciante** | Mostrando coisas na tela · Variáveis · Tipos de dados · Operadores · Conversando com o usuário · Tomando decisões | <img src="https://img.shields.io/badge/22_lições-ff5e24?style=flat-square" alt="Completo, 22 lições"> |
@@ -94,8 +99,15 @@ repetir comando: é preciso usar laços.
 | **4 · Avançado** | Classes · Herança · Decoradores e geradores · Recursão · Algoritmos · Testes | <img src="https://img.shields.io/badge/18_lições-ff5e24?style=flat-square" alt="Completo, 18 lições"> |
 | ** Robô** | 8 fases | <img src="https://img.shields.io/badge/8_fases-ff5e24?style=flat-square" alt="Completo, 8 fases"> |
 
+**JavaScript**
+
+| Nível | Módulos | Status |
+|-------|---------|:------:|
+| **1 · Iniciante** | `console.log` · `let` e `const` · Tipos e template strings · Operadores · `prompt` · `if`/`else` | <img src="https://img.shields.io/badge/18_lições-ff5e24?style=flat-square" alt="Completo, 18 lições"> |
+| **2 · Básico** | Laços `for` · Laços `while` · Arrays · Strings · Funções e arrow functions | <img src="https://img.shields.io/badge/15_lições-ff5e24?style=flat-square" alt="Completo, 15 lições"> |
+
 > [!NOTE]
-> São **73 lições** no total, todas com exercício corrigido automaticamente. Os desafios dos níveis mais altos
+> São **106 lições** no total (73 de Python e 33 de JavaScript), todas com exercício corrigido automaticamente. Os desafios dos níveis mais altos
 > usam testes mais espertos: a busca binária conta quantas vezes a lista é consultada, e a última lição roda os
 > testes do aluno contra uma versão da função com bug para ver se eles a pegam.
 
@@ -106,6 +118,7 @@ repetir comando: é preciso usar laços.
 | Interface | React 19 · React Router 7 · Tailwind CSS 4 |
 | Editor | CodeMirror 6 |
 | Execução de Python | Pyodide (CPython 3.14 em WebAssembly) · Web Worker |
+| Execução de JavaScript | motor do navegador num Web Worker · acorn para instrumentar o código |
 | Estado | Zustand · regras de progresso em funções puras |
 | Conteúdo | Markdown + YAML, convertidos para JSON no build por um plugin do Vite |
 | Testes | Vitest (com o Pyodide real em Node) · Playwright |
@@ -141,8 +154,8 @@ npm run dev          # http://localhost:5173
 
 O projeto separa o que é **genérico** (trilha, progresso, robô, páginas) do que é **específico de uma linguagem**.
 O núcleo não sabe nada de Python: ele conversa com um *adaptador de linguagem* que segue um contrato
-([`contrato.js`](src/nucleo/linguagens/contrato.js)). Adicionar JavaScript ou SQL no futuro significa escrever um
-novo adaptador, sem tocar nas páginas.
+([`contrato.js`](src/nucleo/linguagens/contrato.js)). O JavaScript entrou assim: um adaptador novo e o conteúdo em
+`content/javascript/`, sem mudar a lógica das páginas. SQL ou C seguiriam o mesmo caminho.
 
 ```text
 src/
@@ -153,7 +166,8 @@ src/
 │   ├── progresso/   regras de XP, sequência e conquistas
 │   └── robo/        simulador do labirinto (JS puro) e reprodutor
 ├── linguagens/
-│   └── python/      adaptador, Worker, executor.py, tradução de erros
+│   ├── python/      adaptador, Worker, executor.py, tradução de erros
+│   └── javascript/  adaptador, Worker, executor e instrumentação, tradução de erros
 ├── design-system/   tokens, componentes e sprites em pixel art
 ├── editor/          CodeMirror, tema e Markdown
 └── paginas/         início, trilha, lição, robô e progresso
@@ -168,6 +182,11 @@ src/
 | 3 | **Cão de guarda** | se o Worker não responder em 10 s, ele é encerrado e recriado |
 | 4 | **Sem rede** | `fetch`, `XMLHttpRequest`, `WebSocket` e afins são desativados depois da carga |
 | 5 | **Ambiente restrito** | imports só de uma lista da biblioteca padrão; `open`, `eval`, `exec` e `compile` removidos |
+
+No JavaScript, a camada 2 é feita por **instrumentação**: o [acorn](https://github.com/acornjs/acorn) lê o código e
+uma chamada que conta passos é inserida antes de cada instrução e no começo de cada volta de laço. Até
+`while (true) {}` é interrompido, e o erro aponta a linha certa. O código roda em modo estrito, e o limite continua
+valendo mesmo se o aluno envolver o laço num `try/catch`.
 
 ### Como o robô é animado
 
@@ -256,7 +275,7 @@ Texto da lição em Markdown, com exemplos.
 
 ## <img src="docs/icone-testes.svg" height="30" align="center"> Testes e CI
 
-- **Vitest:** executor Python no Pyodide real, tradução de erros, supervisor do Worker, simulador do robô,
+- **Vitest:** executor Python no Pyodide real, executor de JavaScript (limites, linhas de erro, testes), tradução de erros, supervisor do Worker, simulador do robô,
   progresso e conquistas, montagem do conteúdo, sprites e todas as lições e fases.
 - **Playwright:** Pyodide no Chromium, loop infinito e recuperação do Worker, lição completa, trilha e bloqueios,
   exportar e importar progresso, robô com passo a passo.
@@ -290,7 +309,9 @@ As imagens deste README (banner, botões, cards e ícones) foram geradas a parti
 - [x] Escrever as lições dos níveis Básico, Intermediário e Avançado
 - [x] Tema escuro
 - [ ] Editor de fases do robô com compartilhamento por link
-- [ ] Novas linguagens (JavaScript, SQL, C, Java) usando o contrato de adaptador
+- [x] JavaScript (Iniciante e Básico)
+- [ ] Níveis Intermediário e Avançado de JavaScript
+- [ ] Novas linguagens (SQL, C, Java) usando o contrato de adaptador
 - [ ] Interrupção imediata do código com `SharedArrayBuffer`
 - [ ] Efeitos sonoros e busca nas lições
 - [ ] Cabeçalhos de segurança (CSP) na Vercel

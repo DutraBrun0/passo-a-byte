@@ -6,6 +6,7 @@ import { Pilula } from '../../design-system/componentes/Pilula.jsx'
 import { Titulo } from '../../design-system/componentes/Titulo.jsx'
 import { Nuvens } from '../../design-system/sprites/Nuvens.jsx'
 import { PixelSprite } from '../../design-system/sprites/PixelSprite.jsx'
+import { LINGUAGENS } from '../../linguagens/catalogo.js'
 import { obterCurso } from '../../nucleo/conteudo/cursos.js'
 import { contarConcluidas, proximaLicao, statusLicao } from '../../nucleo/progresso/regras.js'
 import { useProgresso } from '../../nucleo/progresso/useProgresso.js'
@@ -87,6 +88,23 @@ export function PaginaTrilha() {
     <div className="relative isolate overflow-hidden">
       <Nuvens cantos={['topo-direita', 'base-esquerda']} />
       <div className="mx-auto max-w-page px-16 py-32 md:px-32">
+        <nav aria-label="Linguagens" className="mb-16">
+          <ul className="inline-flex gap-4 rounded-md border border-card-edge bg-paper-white p-4 shadow-md">
+            {LINGUAGENS.map(({ id, nome }) => (
+              <li key={id}>
+                <Link
+                  to={`/${id}/trilha`}
+                  aria-current={id === linguagem ? 'page' : undefined}
+                  className={`block rounded-md px-16 py-4 text-body-sm font-semibold transition-colors ${
+                    id === linguagem ? 'bg-signal-orange text-pure-white' : 'text-slate-pencil hover:bg-cloud-mist hover:text-graphite-ink'
+                  }`}
+                >
+                  {nome}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
         <nav aria-label="Níveis">
           <ul className="flex flex-wrap gap-8">
             {curso.niveis.map((n) => (

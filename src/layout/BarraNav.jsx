@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router'
+import { Link, NavLink, useLocation } from 'react-router'
 import { PixelSprite } from '../design-system/sprites/PixelSprite.jsx'
-import { LINGUAGEM_PADRAO } from '../linguagens/catalogo.js'
+import { LINGUAGEM_PADRAO, linguagemDoCaminho } from '../linguagens/catalogo.js'
 import { alternarTema, useTema } from './tema.js'
 
-const LINKS = [
-  { para: `/${LINGUAGEM_PADRAO}/trilha`, rotulo: 'Trilha' },
+// A trilha acompanha a linguagem da página atual; os Desafios do Robô existem só em Python.
+const links = (linguagem) => [
+  { para: `/${linguagem}/trilha`, rotulo: 'Trilha' },
   { para: `/${LINGUAGEM_PADRAO}/robo`, rotulo: 'Desafios do Robô' },
   { para: '/progresso', rotulo: 'Progresso' },
 ]
 
 // Link de navegação: o sublinhado laranja cresce no hover; o ativo ganha texto laranja + anel.
 function classeLink({ isActive }) {
-  const base = 'sublinha rounded-nav px-8 py-4 text-body-sm font-medium transition-colors'
-  return isActive ? `${base} text-ember-crust shadow-subtle` : `${base} text-graphite-ink`
+  const base = 'sublinha rounded-nav px-8 py-4 text-body-sm font-medium transition-colors duration-300'
+  return isActive ? `${base} text-ember-crust shadow-subtle` : `${base} text-graphite-ink hover:text-ember-crust`
 }
 
 /** Botão discreto de tema: só o ícone, que gira ao trocar. */
@@ -44,6 +45,7 @@ function BotaoTema() {
 }
 
 export function BarraNav() {
+  const linguagem = linguagemDoCaminho(useLocation().pathname)
   // A barra ganha borda e sombra depois que a página começa a rolar.
   const [rolou, setRolou] = useState(false)
   useEffect(() => {
@@ -71,7 +73,7 @@ export function BarraNav() {
         </Link>
         <div className="flex flex-wrap items-center gap-8">
           <ul className="flex flex-wrap items-center gap-8">
-            {LINKS.map((link) => (
+            {links(linguagem).map((link) => (
               <li key={link.para}>
                 <NavLink to={link.para} className={classeLink}>
                   {link.rotulo}
