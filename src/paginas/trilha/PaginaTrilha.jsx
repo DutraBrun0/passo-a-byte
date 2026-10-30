@@ -55,13 +55,13 @@ function ItemLicao({ linguagem, licao, status, ultima }) {
       </div>
       <div className="min-w-0 flex-1 pb-16">
         {bloqueada ? (
-          <div className={`${classes} border-cloud-mist [&>*]:opacity-70`} aria-disabled="true">
+          <div className={`${classes} border-card-edge [&>*]:opacity-70`} aria-disabled="true">
             {conteudo}
           </div>
         ) : (
           <Link
             to={`/${linguagem}/licao/${licao.id}`}
-            className={`levita group ${classes} border-cloud-mist hover:border-signal-orange hover:shadow-xl`}
+            className={`levita group ${classes} border-card-edge hover:border-signal-orange hover:shadow-xl`}
           >
             {conteudo}
           </Link>

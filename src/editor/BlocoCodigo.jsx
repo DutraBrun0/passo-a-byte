@@ -20,7 +20,7 @@ export function BlocoCodigo({ codigo, parser }) {
   }, [codigo, parser])
 
   return (
-    <pre className="overflow-x-auto rounded-cards border border-cloud-mist bg-app-window px-16 py-16 font-code text-body-sm leading-subheading text-graphite-ink">
+    <pre className="overflow-x-auto rounded-cards border border-card-edge bg-app-window px-16 py-16 font-code text-body-sm leading-subheading text-graphite-ink">
       <code>
         {partes.map(([texto, classes], i) =>
           classes ? (

@@ -29,6 +29,7 @@
   --color-pure-white: #ffffff; /* texto sobre o laranja e sobre o rodapé */
   --color-signal-deep: #6c3200; /* hover do botão primário */
   --color-ember-ground: #6c3200; /* fundo do rodapé */
+  --color-card-edge: #e3f1fe; /* borda externa das caixas: Cloud Mist no claro, laranja no escuro */
 
   /* Tipografia — famílias */
   --font-*: initial;
@@ -259,4 +260,5 @@
   --color-ember-crust: #ff9a6c;
   --color-signal-deep: #d9481a;
   --color-ember-ground: #1f0f06;
+  --color-card-edge: rgb(255 94 36 / 0.5);
 }

@@ -36,7 +36,7 @@ function CartaoFase({ linguagem, fase, numero, status }) {
       </div>
     </>
   )
-  const classes = 'flex h-full flex-col gap-16 rounded-cards border border-cloud-mist bg-paper-white p-16 shadow-md'
+  const classes = 'flex h-full flex-col gap-16 rounded-cards border border-card-edge bg-paper-white p-16 shadow-md'
   return bloqueada ? (
     <div className={`${classes} [&>*]:opacity-60`} aria-disabled="true">
       {conteudo}

@@ -33,7 +33,7 @@ function CartaoNivel({ nivel, indice, progresso }) {
     <Link
       to={`/${LINGUAGEM}/trilha?nivel=${nivel.id}`}
       data-inclinar
-      className="levita group flex h-full flex-col gap-16 rounded-cards border border-cloud-mist bg-paper-white p-16 shadow-md hover:border-signal-orange hover:shadow-xl"
+      className="levita group flex h-full flex-col gap-16 rounded-cards border border-card-edge bg-paper-white p-16 shadow-md hover:border-signal-orange hover:shadow-xl"
     >
       <div className="flex items-start justify-between gap-16">
         <div className="balanca-no-hover rounded-md bg-cloud-mist p-8 transition-colors group-hover:bg-warm-cream">
@@ -109,7 +109,7 @@ export function Inicio() {
 
         <div className="mx-auto grid max-w-page items-center gap-48 lg:grid-cols-[1.1fr_1fr]">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
-            <p className="inline-flex animate-entra items-center gap-8 rounded-md border border-cloud-mist bg-paper-white px-8 py-4 text-body-sm font-medium text-slate-pencil shadow-md">
+            <p className="inline-flex animate-entra items-center gap-8 rounded-md border border-card-edge bg-paper-white px-8 py-4 text-body-sm font-medium text-slate-pencil shadow-md">
               <span className="h-8 w-8 animate-pisca bg-signal-orange" aria-hidden="true" />
               Python de verdade, direto no navegador
             </p>
@@ -152,7 +152,7 @@ export function Inicio() {
             [curso.fases.length, 'fases do robô'],
             [0, 'instalações'],
           ].map(([valor, rotulo]) => (
-            <li key={rotulo} className="rounded-cards border border-cloud-mist bg-paper-white px-16 py-16 text-center shadow-md">
+            <li key={rotulo} className="rounded-cards border border-card-edge bg-paper-white px-16 py-16 text-center shadow-md">
               <ContadorAnimado valor={valor} className="font-jersey-10 text-heading text-signal-orange" />
               <p className="text-body-sm font-medium text-slate-pencil">{rotulo}</p>
             </li>

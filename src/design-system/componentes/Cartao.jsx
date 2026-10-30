@@ -21,7 +21,7 @@ export function Cartao({
   const preenchimento = semPreenchimento ? '' : 'p-16'
   return (
     <Tag
-      className={`border border-cloud-mist bg-paper-white ${preenchimento} ${raio} ${ELEVACAO[elevacao]} ${className}`}
+      className={`border border-card-edge bg-paper-white ${preenchimento} ${raio} ${ELEVACAO[elevacao]} ${className}`}
       {...resto}
     >
       {children}

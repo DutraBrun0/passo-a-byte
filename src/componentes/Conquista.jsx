@@ -8,7 +8,7 @@ export function Conquista({ conquista, desbloqueadaEm, compacta = false }) {
   const bloqueada = !desbloqueadaEm
   const cartao = compacta
     ? ''
-    : `rounded-cards border border-cloud-mist bg-paper-white p-16 ${bloqueada ? '' : 'levita group hover:border-signal-orange hover:shadow-xl'}`
+    : `rounded-cards border border-card-edge bg-paper-white p-16 ${bloqueada ? '' : 'levita group hover:border-signal-orange hover:shadow-xl'}`
   return (
     <div className={`flex items-center gap-16 ${cartao}`} data-inclinar={compacta || bloqueada ? undefined : ''}>
       <div

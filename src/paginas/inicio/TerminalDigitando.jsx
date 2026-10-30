@@ -77,7 +77,7 @@ export function TerminalDigitando() {
 
   return (
     <div
-      className="overflow-hidden rounded-cardslarge border border-cloud-mist bg-paper-white text-left shadow-xl"
+      className="overflow-hidden rounded-cardslarge border border-card-edge bg-paper-white text-left shadow-xl"
       aria-hidden="true"
     >
       <div className="flex items-center gap-8 border-b border-cloud-mist bg-app-window px-16 py-8">
