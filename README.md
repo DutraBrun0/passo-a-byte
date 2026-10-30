@@ -54,6 +54,9 @@ A diferença é que aqui os erros chegam **traduzidos e explicados em português
 <td width="50%" valign="top">
 
 ** Experiência**
+- Tema claro e escuro, com a troca se espalhando em círculo a partir do botão
+- Confete em pixel art ao acertar, editor que balança ao errar e cards que inclinam com o mouse
+- O Bit da página inicial responde quando você clica nele
 - Tela de carregamento em pixel art com o download real
 - Responsivo para desktop e tablet
 - Navegação por teclado e foco visível
@@ -86,14 +89,15 @@ repetir comando: é preciso usar laços.
 | Nível | Módulos | Status |
 |-------|---------|:------:|
 | **1 · Iniciante** | Mostrando coisas na tela · Variáveis · Tipos de dados · Operadores · Conversando com o usuário · Tomando decisões | <img src="https://img.shields.io/badge/22_lições-ff5e24?style=flat-square" alt="Completo, 22 lições"> |
-| **2 · Básico** | Laços `for` · Laços `while` · Listas · Strings · Funções | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
-| **3 · Intermediário** | Dicionários · Tuplas e conjuntos · Funções · Erros · Compreensões · Biblioteca padrão | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
-| **4 · Avançado** | Classes · Herança · Decoradores e geradores · Recursão · Algoritmos · Testes | <img src="https://img.shields.io/badge/em_construção-989ea4?style=flat-square" alt="Em construção"> |
+| **2 · Básico** | Laços `for` · Laços `while` · Listas · Strings · Funções | <img src="https://img.shields.io/badge/15_lições-ff5e24?style=flat-square" alt="Completo, 15 lições"> |
+| **3 · Intermediário** | Dicionários · Tuplas e conjuntos · Funções · Erros · Compreensões · Biblioteca padrão | <img src="https://img.shields.io/badge/18_lições-ff5e24?style=flat-square" alt="Completo, 18 lições"> |
+| **4 · Avançado** | Classes · Herança · Decoradores e geradores · Recursão · Algoritmos · Testes | <img src="https://img.shields.io/badge/18_lições-ff5e24?style=flat-square" alt="Completo, 18 lições"> |
 | ** Robô** | 8 fases | <img src="https://img.shields.io/badge/8_fases-ff5e24?style=flat-square" alt="Completo, 8 fases"> |
 
 > [!NOTE]
-> Os níveis 2 a 4 já aparecem na trilha com seus módulos. Falta escrever as lições, o que é feito só com
-> arquivos Markdown, sem mexer em código.
+> São **73 lições** no total, todas com exercício corrigido automaticamente. Os desafios dos níveis mais altos
+> usam testes mais espertos: a busca binária conta quantas vezes a lista é consultada, e a última lição roda os
+> testes do aluno contra uma versão da função com bug para ver se eles a pegam.
 
 ## <img src="docs/icone-tecnologias.svg" height="30" align="center"> Tecnologias
 
@@ -198,7 +202,7 @@ demanda, barra de progresso, cache permanente (service worker) e execução em W
 
 <a id="como-adicionar-uma-licao"></a>
 
-## <img src="docs/readme/icone-licao.svg" height="30" align="center"> Como adicionar uma lição
+## <img src="docs/icone-licao.svg" height="30" align="center"> Como adicionar uma lição
 
 A estrutura de pastas em `content/` **é o índice do curso**: o prefixo numérico define a ordem e o resto do nome vira
 o id que aparece na URL.
@@ -250,7 +254,7 @@ Texto da lição em Markdown, com exemplos.
 > O `npm test` valida **toda lição automaticamente**: a solução de referência precisa passar em todos os testes e o
 > código inicial precisa falhar, para evitar exercício trivial por engano.
 
-## <img src="docs/readme/icone-testes.svg" height="30" align="center"> Testes e CI
+## <img src="docs/icone-testes.svg" height="30" align="center"> Testes e CI
 
 - **Vitest:** executor Python no Pyodide real, tradução de erros, supervisor do Worker, simulador do robô,
   progresso e conquistas, montagem do conteúdo, sprites e todas as lições e fases.
@@ -272,6 +276,10 @@ Texto da lição em Markdown, com exemplos.
 
 - **Tipografia:** Jersey 10 nos títulos grandes, Manrope no resto.
 - **Uma só cor de destaque:** o laranja, com um único botão laranja preenchido por tela.
+- **Tema escuro:** as mesmas variáveis de cor, redefinidas no `<body>` quando `data-tema="escuro"`. Os sprites
+  leem a paleta do `:root`, então a pixel art mantém as cores originais nos dois temas.
+- **Movimento com propósito:** animações em passos discretos, como sprites de jogo, e tudo desligado com
+  `prefers-reduced-motion`.
 - **Pixel art de verdade:** sprites definidos como grades de caracteres ligadas aos tokens de cor, desenhados em
   canvas com `image-rendering: pixelated`. Um teste garante que todo sprite usa só cores da paleta.
 
@@ -279,7 +287,8 @@ As imagens deste README (banner, botões, cards e ícones) foram geradas a parti
 
 ## <img src="docs/icone-proximos.svg" height="32" align="center"> Próximos passos
 
-- [ ] Escrever as lições dos níveis Básico, Intermediário e Avançado
+- [x] Escrever as lições dos níveis Básico, Intermediário e Avançado
+- [x] Tema escuro
 - [ ] Editor de fases do robô com compartilhamento por link
 - [ ] Novas linguagens (JavaScript, SQL, C, Java) usando o contrato de adaptador
 - [ ] Interrupção imediata do código com `SharedArrayBuffer`
