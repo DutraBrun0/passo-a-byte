@@ -136,7 +136,7 @@ function Fase({ adaptador, curso, fase }) {
         <nav aria-label="Você está em" className="text-body-sm text-slate-pencil">
           <Link
             to={`/${linguagem}/robo`}
-            className="rounded-links font-medium text-graphite-ink underline-offset-4 hover:underline"
+            className="link-suave rounded-links font-medium text-graphite-ink hover:text-ember-crust"
           >
             Desafios do Robô
           </Link>

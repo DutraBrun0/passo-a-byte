@@ -114,7 +114,7 @@ function Licao({ adaptador, curso, licao }) {
     <div className="mx-auto grid max-w-page gap-32 px-16 py-32 md:px-32 lg:grid-cols-2">
       <article className="flex min-w-0 flex-col gap-24">
         <nav aria-label="Você está em" className="text-body-sm text-slate-pencil">
-          <Link to={caminhoTrilha} className="rounded-links font-medium text-graphite-ink underline-offset-4 hover:underline">
+          <Link to={caminhoTrilha} className="link-suave rounded-links font-medium text-graphite-ink hover:text-ember-crust">
             {nivel.titulo}
           </Link>
           <span aria-hidden="true"> › </span>

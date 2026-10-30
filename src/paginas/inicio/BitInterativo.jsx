@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { PixelSprite } from '../../design-system/sprites/PixelSprite.jsx'
+import { useTema } from '../../layout/tema.js'
 
 /*
  * O Bit da página inicial: clique nele para ele pular e dizer alguma coisa.
@@ -17,8 +18,11 @@ const FALAS = [
 ]
 const CLIQUES_PARA_GIRAR = 5
 const TEMPO_DA_FALA_MS = 3200
+// No tema escuro o Bit fica branco (cabeça) com contorno claro, e o laranja continua.
+const BIT_NO_ESCURO = { g: 'cloud-shade', l: 'paper-white', w: 'cloud-shade' }
 
 export function BitInterativo() {
+  const escuro = useTema() === 'escuro'
   const [cliques, setCliques] = useState(0)
   const [falando, setFalando] = useState(false)
 
@@ -56,7 +60,7 @@ export function BitInterativo() {
         className="block cursor-pointer rounded-md transition-transform duration-150 hover:scale-110 active:scale-95"
       >
         <span key={cliques} className={`block ${girando ? 'animate-giro' : cliques ? 'animate-pulo' : 'animate-flutua'}`}>
-          <PixelSprite nome="robo" escala={4} />
+          <PixelSprite nome="robo" escala={4} trocas={escuro ? BIT_NO_ESCURO : undefined} />
         </span>
       </button>
     </div>
